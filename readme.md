@@ -1,7 +1,7 @@
 
 # Pyrogram-Add-Member
 
-This Project Let You add members from ur group to another group or supergroup.
+This Project Let You add members from Your group to another group or supergroup.
 
 This project is most optimised Telegram member adder.
 
@@ -23,7 +23,7 @@ This project is most optimised Telegram member adder.
 
 ## Deployment
 
-- To deploy this project run u must have python3 installed
+- To deploy this project run you must have python3 installed
 - use other command if first one give error 
 
 
@@ -40,10 +40,10 @@ Now We Will Add Account Which Will be Used For Adding
 ```
 RUN python3 make_config.py or python make_config.py
 ```
-- first is number of account u have
+- first is number of account You have
 - 2nd  and 3rd is group id it look like this 8272873688
 - 4th and 5th is Group username or invite link will work
-- 6th is last time user was online [4 option available] default to Long ago Check FAQ FOR THIS ONE
+- 6th is last time user was online [6 option available] default to Long ago Check FAQ FOR THIS ONE
 - 7, 8, 9 is phone number, api_id and api_hash
 ```
 RUN python3 login.py or python login.py 
@@ -92,9 +92,21 @@ I will Suggest 15 but depends on ur biggest
 
 Buy account from : [@R5pro](http://t.me/R5pro) on Telegram
 
-#### Why no member added?
-
 Check @spambot on Telegram if ur account is limited
+
+#### 6th point from deployment
+
+option are
+```
+ UserStatus.LONG_AGO
+ UserStatus.LAST_MONTH
+ UserStatus.LAST_WEEK
+ UserStatus.OFFLINE
+ UserStatus.RECENTLY
+ UserStatus.ONLINE
+ ```
+ lower option added user who are online and rest is clear just read the options
+
 
 #### Is There a Paid version Available?
 
