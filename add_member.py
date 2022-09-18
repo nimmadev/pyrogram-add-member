@@ -12,8 +12,7 @@ async def main():
         
         #loads users and channel info
         config = (json.load(open("config.json")))
-        chat_idq = -1001640960282
-        #int(str(-100) +str(config['group_target']))
+        chat_idq = int(str(-100) +str(config['group_target']))
         
         #list to chcek active member
         activelist = ['UserStatus.LONG_AGO', 'UserStatus.LAST_MONTH', 'UserStatus.LAST_WEEK', 'UserStatus.OFFLINE', 'UserStatus.RECENTLY']
