@@ -15,7 +15,7 @@ async def main():
         chat_idq = int(str(-100) +str(config['group_target']))
         
         #list to chcek active member
-        activelist = ['UserStatus.LONG_AGO', 'UserStatus.LAST_MONTH', 'UserStatus.LAST_WEEK', 'UserStatus.OFFLINE', 'UserStatus.RECENTLY']
+        activelist = ['UserStatus.LONG_AGO', 'UserStatus.LAST_MONTH', 'UserStatus.LAST_WEEK', 'UserStatus.OFFLINE', 'UserStatus.RECENTLY', 'UserStatus.ONLINE' ]
         #count retrive old state
         try:
             with open('current_count.txt') as f:
