@@ -105,8 +105,9 @@ option are
  UserStatus.RECENTLY
  UserStatus.ONLINE
  ```
- lower option added user who are online and rest is clear just read the options
+ 6th option add user who are online and 1st add all the user
 
+other should be clear from name
 
 #### Is There a Paid version Available?
 
