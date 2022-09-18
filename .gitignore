@@ -1,0 +1,9 @@
+session/*json
+session/*session
+session/*session*
+data/*.json
+current_count.txt
+config.json
+.idea
+__pycache__
+p.py
