@@ -6,7 +6,7 @@ This Project Let You add members from Your group to another group or supergroup.
 This project is most optimised Telegram member adder.
 
 
-![Logo](https://raw.githubusercontent.com/nimma0001/pyrogram-add-member/main/logo/20220918_025117_0000.png?token=GHSAT0AAAAAABYVEJWBS3O7ZXL26KPH5FTEYZGHRXQ)
+![Logo](https://raw.githubusercontent.com/nimma0001/pyrogram-add-member/master/logo/20220918_025117_0000.png)
 
 
 ## Acknowledgements
