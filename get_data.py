@@ -25,10 +25,10 @@ def filterus():
         path_group3 = 'data/user.json'
         if os.path.isfile(path_group3):
             try:
-                with open(path_group3) as c:
-                    json33 = json.loads(b.read())
-                with open(path_group4) as c:
-                    json44 = json.loads(b.read())
+                with open(path_group3) as m:
+                    json33 = json.loads(m.read())
+                with open(path_group4) as l:
+                    json44 = json.loads(l.read())
                 finaljson = [user for user in json33 if not any(
                     user["userid"] == other["userid"] for other in json44)]
                  
