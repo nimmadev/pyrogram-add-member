@@ -47,7 +47,7 @@ async def main():
                                 count -= 1
                                 added += 1
                                 print('sleep: ' + str(120 / len(config["accounts"])))
-                                time.sleep(120 / len(config["accounts"]))
+                                await asyncio.sleep(120 / len(config["accounts"]))
                                 updatecount()
                             
                         
@@ -60,7 +60,7 @@ async def main():
                     except UserIdInvalid:
                         print("user invalid or u never met user")
                         print('sleep: ' + str(120 / len(config["accounts"])))
-                        time.sleep(120 / len(config["accounts"]))
+                        await asyncio.sleep(120 / len(config["accounts"]))
                         count -= 1
                     except PeerIdInvalid as e:
                         print("you need to intrect with this user first")
@@ -68,21 +68,21 @@ async def main():
                     except UserPrivacyRestricted:
                         print("user have privacy enabled")
                         print('sleep: ' + str(120 / len(config["accounts"])))
-                        time.sleep(120 / len(config["accounts"]))
+                        await asyncio.sleep(120 / len(config["accounts"]))
                         count -= 1
                     except BaseException as e:
                         print(phone, "Rpc error")
                         print(e)
                         print,(user_id)
                         print('sleep: ' + str(120 / len(config["accounts"])))
-                        time.sleep(120 / len(config["accounts"]))
+                        await asyncio.sleep(120 / len(config["accounts"]))
                         updatecount()
                         count -= 1
             if config["accounts"] is False:
                 print(added, ": members were added")
                 break
             if added == (30 * len(config["accounts"])):
-                time.sleep(7500)
+                await asyncio.sleep(7000)
 
 
 asyncio.run(main())

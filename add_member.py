@@ -34,12 +34,11 @@ async def main():
         for x in dropwhile(lambda y: y != last_active, activelist):
            active.append(x)
         while count >= 1:
-                for account in config["accounts"]:
-                    phone = account["phone"]
-                    user_active = user_id[count]["status"]
+            for account in config["accounts"]:
+                phone = account["phone"]
+                user_active = user_id[count]["status"]
                # if last_active = "UserStatus.LAST_MONTH" 
-                    app = Client(phone, workdir="session")
-                    await app.start()
+                async with Client(phone, workdir="session") as app:
                     try:
                         if user_active in active:
                                 print("trying to add", user_id[count]["userid"])
@@ -48,8 +47,7 @@ async def main():
                                 count -= 1
                                 added += 1
                                 print('sleep: ' + str(120 / len(config["accounts"])))
-                                await app.stop()
-                                time.sleep(120 / len(config["accounts"]))
+                                await asyncio.sleep(120 / len(config["accounts"]))
                                 updatecount()
                             
                         
@@ -62,32 +60,29 @@ async def main():
                     except UserIdInvalid:
                         print("user invalid or u never met user")
                         print('sleep: ' + str(120 / len(config["accounts"])))
-                        await app.stop()
-                        time.sleep(120 / len(config["accounts"]))
+                        await asyncio.sleep(120 / len(config["accounts"]))
                         count -= 1
                     except PeerIdInvalid as e:
                         print("you need to intrect with this user first")
-                        #config["accounts"].remove(account)
+                        config["accounts"].remove(account)
                     except UserPrivacyRestricted:
                         print("user have privacy enabled")
                         print('sleep: ' + str(120 / len(config["accounts"])))
-                        await app.stop()
-                        time.sleep(120 / len(config["accounts"]))
+                        await asyncio.sleep(120 / len(config["accounts"]))
                         count -= 1
                     except BaseException as e:
                         print(phone, "Rpc error")
                         print(e)
-                        print(user_id)
+                        print,(user_id)
                         print('sleep: ' + str(120 / len(config["accounts"])))
-                        await app.stop()
-                        time.sleep(120 / len(config["accounts"]))
+                        await asyncio.sleep(120 / len(config["accounts"]))
                         updatecount()
                         count -= 1
-                if config["accounts"] is False:
-                   print(added, ": members were added")
-                   break
-                if added == (30 * len(config["accounts"])):
-                   time.sleep(7500)
+            if config["accounts"] is False:
+                print(added, ": members were added")
+                break
+            if added == (30 * len(config["accounts"])):
+                await asyncio.sleep(7000)
 
 
 asyncio.run(main())
