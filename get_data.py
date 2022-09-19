@@ -17,7 +17,7 @@ def filterus():
 
                 newjson = [user for user in json11 if not any(
                     user["userid"] == other["userid"] for other in json22)]
-                with open('data/user.json', "w") as f:
+                with open('data/user.json', "w", encoding='utf-8') as f:
                     json.dump(newjson, f, ensure_ascii=False, indent=4)
                 print("Filter process done")
             except:
@@ -32,7 +32,7 @@ def filterus():
                 finaljson = [user for user in json33 if not any(
                     user["userid"] == other["userid"] for other in json44)]
                  
-                with open('data/user.json', "w") as f:
+                with open('data/user.json', "w", encoding='utf-8') as f:
                     json.dump(finaljson, f, ensure_ascii=False, indent=4)
                 
             except:
