@@ -21,8 +21,10 @@ def main():
             if app.get_me():
                 print(phone, "is logined")
                 try:
+                    print("trying to login", phone)
                     app.join_chat(group_target_id)
                     app.join_chat(group_source_id)
+                    print(phone, "logined successfully")
                 except BaseException:
                     print("couldn't add u to the groups or maybe this number already in group")
             else:

@@ -48,7 +48,7 @@ async def main():
      	mem2 = []
      	mem3 = []
      	async with Client(phone, workdir="session") as app:
-            print( "is logined") if await app.get_me() else print("login failed")
+            print(phone, "is logined") if await app.get_me() else print(phone, "login failed")
             async for member in app.get_chat_members(chat_id=group_source_id):
                
                 try:
@@ -84,10 +84,10 @@ async def main():
                 mem3.append(memb)
             with open('data/source_user.json', 'w', encoding='utf-8') as f:
                 json.dump(mem, f, indent=4, ensure_ascii=False)
-                print("done")
+                print("filter process started")
             with open('data/target_user.json', 'w', encoding='utf-8') as f:
                 json.dump(mem2, f, indent=4, ensure_ascii=False)
-                print("done")
+                print("filter process almost done")
             with open('data/source_admin.json', 'w', encoding='utf-8') as f:
                 json.dump(mem3, f, indent=4, ensure_ascii=False)
                 print("done")
