@@ -64,7 +64,7 @@ async def main():
                         count -= 1
                     except PeerIdInvalid as e:
                         print("you need to intrect with this user first")
-                        config["accounts"].remove(account)
+                        #config["accounts"].remove(account)
                     except UserPrivacyRestricted:
                         print("user have privacy enabled")
                         print('sleep: ' + str(120 / len(config["accounts"])))

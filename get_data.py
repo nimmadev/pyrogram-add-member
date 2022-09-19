@@ -4,7 +4,40 @@ from pyrogram import Client, enums
 #loads config
 
 #workdir = 'session/'
+def filterus():
+        path_group = 'data/source_user.json'
+        path_group2 = 'data/target_user.json'
+        path_group4 = 'data/source_admin.json'
+        if os.path.isfile(path_group):
+            try: 
+                with open(path_group) as f:
+                    json11 = json.loads(f.read())
+                with open(path_group2) as b:
+                    json22 = json.loads(b.read())
 
+                newjson = [user for user in json11 if not any(
+                    user["userid"] == other["userid"] for other in json22)]
+                with open('data/user.json', "w") as f:
+                    json.dump(newjson, f, ensure_ascii=False, indent=4)
+                print("Filter process done")
+            except:
+                print("failed to make filter json")
+        path_group3 = 'data/user.json'
+        if os.path.isfile(path_group3):
+            try:
+                with open(path_group3) as c:
+                    json33 = json.loads(b.read())
+                with open(path_group4) as c:
+                    json44 = json.loads(b.read())
+                finaljson = [user for user in json33 if not any(
+                    user["userid"] == other["userid"] for other in json44)]
+                 
+                with open('data/user.json', "w") as f:
+                    json.dump(finaljson, f, ensure_ascii=False, indent=4)
+                
+            except:
+                print("no admin in group")
+            #disconect
 async def main():
      config = (json.load(open("config.json")))
      group_source_id = int(str("-100")+str(config['group_source']))
@@ -62,40 +95,6 @@ async def main():
             
             
 
-def filterus():
-        path_group = 'data/source_user.json'
-        path_group2 = 'data/target_user.json'
-        path_group4 = 'data/source_admin.json'
-        if os.path.isfile(path_group):
-            try: 
-                with open(path_group) as f:
-                    json11 = json.loads(f.read())
-                with open(path_group2) as b:
-                    json22 = json.loads(b.read())
-
-                newjson = [user for user in json11 if not any(
-                    user["userid"] == other["userid"] for other in json22)]
-                with open('data/user.json', "w") as f:
-                    json.dump(newjson, f, ensure_ascii=False, indent=4)
-                print("Filter process done")
-            except:
-                print("failed to make filter json")
-        path_group3 = 'data/user.json'
-        if os.path.isfile(path_group3):
-            try:
-                with open(path_group3) as c:
-                    json33 = json.loads(b.read())
-                with open(path_group4) as c:
-                    json44 = json.loads(b.read())
-                finaljson = [user for user in json33 if not any(
-                    user["userid"] == other["userid"] for other in json44)]
-                 
-                with open('data/user.json', "w") as f:
-                    json.dump(finaljson, f, ensure_ascii=False, indent=4)
-                
-            except:
-                print("no admin in group")
-            #disconect
             
 asyncio.run(main())
 filterus()
