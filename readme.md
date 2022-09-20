@@ -5,6 +5,10 @@ This Project Let You add members from Your group to another group or supergroup.
 
 This project is most optimised Telegram member adder.
 
+confirmed to beworking on linux and mobile with termux
+
+windows not tested
+
 
 ![Logo](https://raw.githubusercontent.com/nimma0001/pyrogram-add-member/master/logo/20220918_025117_0000.png)
 
