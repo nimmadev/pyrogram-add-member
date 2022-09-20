@@ -3,7 +3,7 @@ import json, os
 import ujson
 from pyrogram import Client, errors, enums 
 from pyrogram.errors import RPCError, FloodWait, ChatAdminRequired, PeerFlood, PeerIdInvalid, UserIdInvalid, UserPrivacyRestricted, UserRestricted, ChannelPrivate
-
+from pathlib import Path
 
 '''
 login funtion on line 8-21
@@ -30,8 +30,8 @@ def login(phone, api_id, api_hash, auto_join, group_target_id, group_source_id):
             print(phone, 'login failed')
 
 
-def filterus(p1,p2,p3,p4):
-        
+def filterus(p1,p2,p4):
+        p3 = Path("data/user.json")
         if os.path.isfile(p1):
             print('starting filter user')
             try: 
@@ -42,8 +42,8 @@ def filterus(p1,p2,p3,p4):
 
                 newjson = [user for user in json11 if not any(
                     user["userid"] == other["userid"] for other in json22)]
-                with open(p3, "w", encoding='utf-8') as f:
-                    ujson.dump(newjson, f, ensure_ascii=False, indent=4)
+                with open(p3, 'w', encoding='utf-8') as file:
+                    ujson.dump(newjson, file, ensure_ascii=False, indent=4)
                 print("Filter process done")
             except:
                 print("failed to make filter json")
@@ -57,7 +57,7 @@ def filterus(p1,p2,p3,p4):
                 finaljson = [user for user in json33 if not any(
                     user["userid"] == other["userid"] for other in json44)]
                  
-                with open('data/user.json', "w", encoding='utf-8') as f:
+                with open(p3, "w", encoding='utf-8') as f:
                     ujson.dump(finaljson, f, ensure_ascii=False, indent=4)
                 
             except:
