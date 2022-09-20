@@ -21,9 +21,12 @@ def login(phone, api_id, api_hash, auto_join, group_target_id, group_source_id):
             if auto_join is True:
                 try:
                     app.join_chat(group_source_id)
+                except BaseException as e:
+                    print(phone,' number is already in group or join manually for group source' )
+                try:
                     app.join_chat(group_target_id)
                 except BaseException as e:
-                    print(phone,' number is already in group')
+                    print(phone,' number is already in group or join manually for group target')
             else:
                 print('auto join is off check config')
         else:
