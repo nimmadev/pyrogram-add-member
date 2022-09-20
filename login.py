@@ -1,32 +1,15 @@
 import asyncio
 import json
-from pyrogram import Client, errors
+from helper.helpfun import login
+#load config for accounts
+config=json.load(open('config.json'))
+group_source_id=str(config['group_source_username'])
+group_target_id=str(config['group_target_username'])
+auto_join=bool(config['auto_join'])
 
+for account in config['accounts']:
+    phone = account['phone']
+    api_id = account['api_id']
+    api_hash = account['api_hash']
+    login(phone, api_id, api_hash, auto_join,group_target_id, group_source_id)
 
-# load config
-config = (json.load(open("config.json")))
-# group target link
-group_source_id = str(config['group_target_username'])
-group_source_id = str(config['group_source_username'])
-#workdir = 'session/'
-
-
-def main():
-    for account in config["accounts"]:
-        phone = account["phone"]
-        api_id = account["api_id"]
-        api_hash = account["api_hash"]
-        print(phone)
-        with Client(phone, api_id, api_hash, workdir="session") as app:
-            if app.get_me():
-                print(phone, "is logined")
-                try:
-                    print("trying to login", phone)
-                    app.join_chat(group_target_id)
-                    app.join_chat(group_source_id)
-                    print(phone, "logined successfully")
-                except BaseException:
-                    print("couldn't add u to the groups or maybe this number already in group")
-            else:
-               print(phone, "login failed")
-main()

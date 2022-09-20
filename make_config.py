@@ -17,6 +17,7 @@ def main():
             "group_source_username": input("group_source_username: "),
             "group_target_username": input("group_target_username: "),
             "from_date_active": "UserStatus.LONG_AGO",
+            "auto_join": False, #can be True or False
             "accounts": []
         }
 
