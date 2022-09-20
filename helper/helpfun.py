@@ -132,24 +132,26 @@ async def add_mem(user_id, config, active):
     added = 0
     try:
         with open('current_count.txt') as f:
-            count = int(f.read())               
+            counter = int(f.read())
+            count = counter               
     except:
-            count = 0
+            counter = 0
+            count
     for i in range(count, len(user_id)):
         for account in config["accounts"]:
             phone = account["phone"]
-            user_active = user_id[count]["status"]
+            user_active = user_id[counter]["status"]
             async with Client(phone, workdir="session") as app:
                 try:
                     if user_active in active:
-                            print("trying to add", user_id[count]["userid"])
+                            print("trying to add", user_id[counter]["userid"])
                             await app.add_chat_members(chat_id=chat_idt, user_ids=user_id[count]["userid"])
-                            print(user_id[count]["userid"], "added success")
-                            count += 1
+                            print(user_id[counter]["userid"], "added success")
+                            counter += 1
                             added += 1
                             print('sleep: ' + str(120 / len(config["accounts"])))
                             await asyncio.sleep(120 / len(config["accounts"]))
-                            updatecount(count)
+                            updatecount(counter)
                         
                 except PeerFlood:
                     config["accounts"].remove(account)
@@ -167,17 +169,18 @@ async def add_mem(user_id, config, active):
                     print("user invalid or u never met user")
                     print('sleep: ' + str(120 / len(config["accounts"])))
                     await asyncio.sleep(120 / len(config["accounts"]))
-                    count +=1
+                    counter +=1
+
                 except PeerIdInvalid as e:
                     print("if You see this line many time rerun the get_data.py")
                     #config["accounts"].remove(account)
-                    count +=1
+                    counter +=1
                     updatecount(count)
                 except UserPrivacyRestricted:
                     print("user have privacy enabled")
                     print('sleep: ' + str(120 / len(config["accounts"])))
                     await asyncio.sleep(120 / len(config["accounts"]))
-                    count +=1
+                    counter +=1
                 except BaseException as e:
                     print(phone, "Rpc error")
                     print(e)
@@ -185,9 +188,10 @@ async def add_mem(user_id, config, active):
                     print('sleep: ' + str(120 / len(config["accounts"])))
                     await asyncio.sleep(120 / len(config["accounts"]))
                     updatecount(count)
-                    count +=1
+                    counter +=1
                 if config["accounts"] is False:
                     print(added, ": members were added")
+                    updatecount(counter)
                     break
                 if added == (30 * len(config["accounts"])):
                     await asyncio.sleep(7000)
