@@ -2,7 +2,7 @@ import asyncio
 import json, os
 import ujson
 from pyrogram import Client, errors, enums 
-from pyrogram.errors import RPCError, FloodWait, ChatAdminRequired, PeerFlood, PeerIdInvalid, UserIdInvalid, UserPrivacyRestricted, UserRestricted, ChannelPrivate
+from pyrogram.errors import RPCError, FloodWait, ChatAdminRequired, PeerFlood, PeerIdInvalid, UserIdInvalid, UserPrivacyRestricted, UserRestricted, ChannelPrivate, UserNotMutualContact
 from pathlib import Path
 
 '''
@@ -136,7 +136,7 @@ async def add_mem(user_id, config, active):
             count = counter               
     except:
             counter = 0
-            count
+            count = 0
     for i in range(count, len(user_id)):
         for account in config["accounts"]:
             phone = account["phone"]
@@ -170,24 +170,34 @@ async def add_mem(user_id, config, active):
                     print('sleep: ' + str(120 / len(config["accounts"])))
                     await asyncio.sleep(120 / len(config["accounts"]))
                     counter +=1
-
+                except UserNotMutualContact:
+                    print('user is not mutal contact')
+                    counter += 1
                 except PeerIdInvalid as e:
                     print("if You see this line many time rerun the get_data.py")
                     #config["accounts"].remove(account)
                     counter +=1
-                    updatecount(count)
+                    updatecount(counter)
                 except UserPrivacyRestricted:
                     print("user have privacy enabled")
                     print('sleep: ' + str(120 / len(config["accounts"])))
                     await asyncio.sleep(120 / len(config["accounts"]))
                     counter +=1
-                except BaseException as e:
+                except RPCError as e:
                     print(phone, "Rpc error")
                     print(e)
                     print,(user_id)
                     print('sleep: ' + str(120 / len(config["accounts"])))
                     await asyncio.sleep(120 / len(config["accounts"]))
-                    updatecount(count)
+                    updatecount(counter)
+                    counter +=1
+                except BaseException as e:
+                    print(phone, "error info below")
+                    print(e)
+                    print,(user_id)
+                    print('sleep: ' + str(120 / len(config["accounts"])))
+                    await asyncio.sleep(120 / len(config["accounts"]))
+                    updatecount(counter)
                     counter +=1
                 if config["accounts"] is False:
                     print(added, ": members were added")
