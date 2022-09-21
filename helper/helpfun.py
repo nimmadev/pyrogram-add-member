@@ -22,7 +22,7 @@ async def login(phone, api_id, api_hash, auto_join, group_target_id, group_sourc
                 try:
                     await app.join_chat(group_source_id)
                 except BaseException as e:
-                    await print(phone,' number is already in group or join manually for group source' )
+                     print(phone,' number is already in group or join manually for group source' )
                 try:
                     await app.join_chat(group_target_id)
                 except BaseException as e:
