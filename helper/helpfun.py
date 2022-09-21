@@ -14,17 +14,17 @@ add-member function on line 226-
 '''
 
 
-def login(phone, api_id, api_hash, auto_join, group_target_id, group_source_id):
-    with Client(phone, api_id, api_hash, workdir='session')as app:
-        if app.get_me():
+async def login(phone, api_id, api_hash, auto_join, group_target_id, group_source_id):
+    async with Client(phone, api_id, api_hash, workdir='session')as app:
+        if await app.get_me():
             print(phone, 'is logined')
             if auto_join is True:
                 try:
-                    app.join_chat(group_source_id)
+                    await app.join_chat(group_source_id)
                 except BaseException as e:
-                    print(phone,' number is already in group or join manually for group source' )
+                    await print(phone,' number is already in group or join manually for group source' )
                 try:
-                    app.join_chat(group_target_id)
+                    await app.join_chat(group_target_id)
                 except BaseException as e:
                     print(phone,' number is already in group or join manually for group target')
             else:
