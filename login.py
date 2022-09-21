@@ -11,5 +11,6 @@ for account in config['accounts']:
     phone = account['phone']
     api_id = account['api_id']
     api_hash = account['api_hash']
+    print(phone)
     login(phone, api_id, api_hash, auto_join,group_target_id, group_source_id)
 
