@@ -2,10 +2,10 @@ import asyncio
 import json, os
 import ujson
 from pyrogram import Client, errors, enums 
-from pyrogram.errors import RPCError, FloodWait, ChatAdminRequired, PeerFlood, PeerIdInvalid, UserIdInvalid, UserPrivacyRestricted, UserRestricted, ChannelPrivate, UserNotMutualContact
+from pyrogram.errors import RPCError, FloodWait, ChatAdminRequired, PeerFlood, PeerIdInvalid, UserIdInvalid, UserPrivacyRestricted, UserRestricted, ChannelPrivate, UserNotMutualContact, PhoneNumberBanned
 from pathlib import Path
 
-'''
+''' 
 login funtion on line 8-21
 filterus function on line 25-59
 get-member function on line 61-114
@@ -126,7 +126,7 @@ def updatecount(count):
     with open('current_count.txt', 'w') as g:
         g.write(str(count))
         g.close()           
-        
+       
 async def add_mem(user_id, config, active):
     chat_idt = int(str(-100) +str(config['group_target']))
     added = 0
@@ -144,7 +144,7 @@ async def add_mem(user_id, config, active):
             async with Client(phone, workdir="session") as app:
                 try:
                     if user_active in active:
-                            print("trying to add", user_id[counter]["userid"], 'by, phone)
+                            print("trying to add", user_id[counter]["userid"], 'by', phone)
                             await app.add_chat_members(chat_id=chat_idt, user_ids=user_id[counter]["userid"])
                             print(user_id[counter]["userid"], "added success")
                             counter += 1
@@ -152,7 +152,9 @@ async def add_mem(user_id, config, active):
                             print('sleep: ' + str(120 / len(config["accounts"])))
                             await asyncio.sleep(120 / len(config["accounts"]))
                             updatecount(counter)
-                        
+                except PhoneNumberBanned: 
+                    config["accounts"].remove(account)  
+                    print('phone number banned', phone)    
                 except PeerFlood:
                     config["accounts"].remove(account)
                     print(phone, 'has been limited by telegram wait or check spambot')
