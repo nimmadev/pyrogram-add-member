@@ -145,7 +145,7 @@ async def add_mem(user_id, config, active):
                 try:
                     if user_active in active:
                             print("trying to add", user_id[counter]["userid"])
-                            await app.add_chat_members(chat_id=chat_idt, user_ids=user_id[count]["userid"])
+                            await app.add_chat_members(chat_id=chat_idt, user_ids=user_id[counter]["userid"])
                             print(user_id[counter]["userid"], "added success")
                             counter += 1
                             added += 1
