@@ -1,9 +1,10 @@
 import asyncio
-import json, os
+import json, os, sys
 import ujson
 from pyrogram import Client, errors, enums 
 from pyrogram.errors import RPCError, FloodWait, ChatAdminRequired, PeerFlood, PeerIdInvalid, UserIdInvalid, UserPrivacyRestricted, UserRestricted, ChannelPrivate, UserNotMutualContact, PhoneNumberBanned
 from pathlib import Path
+import readchar, platform, signal
 
 ''' 
 login funtion on line 8-21
@@ -67,39 +68,43 @@ def filterus(p1,p2,p4):
                 print("no admin in group")
             #disconect
 
-async def get_data(gp_s_id, gp_t_id, config):
+async def get_data(gp_s_id, gp_t_id, config, stop):
     for account in config["accounts"]:
-     	phone = account["phone"]
-     	mem=[] 
-     	mem2=[] 
-     	mem3=[] 
-     	async with Client(phone, workdir="session") as app:
+        phone = account["phone"]
+        async with Client(phone, workdir="session") as app: 
             print(phone, "is logined") if await app.get_me() else print(phone, "login failed")
+            mem=[] 
             async for member in app.get_chat_members(chat_id=gp_s_id):
-               
                 try:
                     #scrap member
                     memb = {
                		  "userid": str(member.user.id),
               		  "status": str(member.user.status),
-              		  "name": str(member.user.first_name)
+              		  "name": str(member.user.first_name),
+                      "bot": str(member.user.is_bot),
+                      "username": str(member.user.username)
                			        }
                 except:
               	   print('error')
                 mem.append(memb)
             print(phone, 'getting source user data')
+            mem2=[] 
             async for member in app.get_chat_members(chat_id=gp_t_id):
                 try:
                     #scrap member
                     memb = {
                		  "userid": str(member.user.id),
               		  "status": str(member.user.status),
-              		  "name": str(member.user.first_name)
+              		  "name": str(member.user.first_name),
+                      "bot": str(member.user.is_bot),
+                      "username": str(member.user.username)
+                      
                			        }
                 except:
               	   print('error')
                 mem2.append(memb)
             print(phone, 'getting target user data')
+            mem3=[]
             async for member in app.get_chat_members(chat_id=gp_s_id, filter=enums.ChatMembersFilter.ADMINISTRATORS):
                 try:
                     #scrap member
@@ -120,16 +125,23 @@ async def get_data(gp_s_id, gp_t_id, config):
             with open('data/source_admin.json', 'w', encoding='utf-8') as f:
                 json.dump(mem3, f, indent=4, ensure_ascii=False)
                 print("saving admin user")
+                
+        if "username" == stop:
+            break
             # refresh hash acces for all accounts 
  
 def updatecount(count):
     with open('current_count.txt', 'w') as g:
         g.write(str(count))
-        g.close()           
-       
-async def add_mem(user_id, config, active):
+        g.close()
+           
+async def add_mem(user_id, config, active, method):
     chat_idt = int(str(-100) +str(config['group_target']))
     added = 0
+    if method == 'username':
+        usermethod = "username"
+    else:
+        usermethod = "userid"
     try:
         with open('current_count.txt') as f:
             counter = int(f.read())
@@ -143,15 +155,29 @@ async def add_mem(user_id, config, active):
             user_active = user_id[counter]["status"]
             async with Client(phone, workdir="session") as app:
                 try:
+                    if user_id[counter][usermethod] == 'None':
+                        counter += 1
+                        continue
+                    if user_id[counter]["bot"] == 'True':
+                        counter += 1
+                        continue
                     if user_active in active:
-                            print("trying to add", user_id[counter]["userid"], 'by', phone)
-                            await app.add_chat_members(chat_id=chat_idt, user_ids=user_id[counter]["userid"])
-                            print(user_id[counter]["userid"], "added success")
-                            counter += 1
-                            added += 1
-                            print('sleep: ' + str(120 / len(config["accounts"])))
-                            await asyncio.sleep(120 / len(config["accounts"]))
-                            updatecount(counter)
+                        print("trying to add", user_id[counter]["userid"], 'by', phone)
+                        await app.add_chat_members(chat_id=chat_idt, user_ids=user_id[counter][usermethod])
+                        print(user_id[counter]["userid"], "added success")
+                        counter += 1
+                        added += 1
+                        print('sleep: ' + str(120 / len(config["accounts"])))
+                        await asyncio.sleep(120 / len(config["accounts"]))
+                        updatecount(counter)
+                except (GeneratorExit, SystemExit, KeyboardInterrupt) as e:
+                    try:
+                        app.stop()
+                        print(added, ": members were added")
+                        updatecount(counter)
+                    except BaseException:
+                        print(added, ": members were added")
+                        updatecount(counter)
                 except PhoneNumberBanned: 
                     config["accounts"].remove(account)  
                     print('phone number banned', phone)    
