@@ -24,7 +24,7 @@ This project is most optimised Telegram member adder.
 
 ## Deployment
 
-- To deploy this project run you must have python3 installed
+- To deploy this project run you must have python3 installed and git
 - use other command if first one give error 
 
 
@@ -55,8 +55,6 @@ RUN python3 login.py or python login.py
 RUN python3 get_data.py or python get_data.py
 ```
 - this will extract 10k members from source group
-- for unlimited extract contact 
-- [@R5pro](http://t.me/R5pro) on Telegram
 ```
 RUN python3 add_member.py or python add_member.py
 ```
@@ -66,12 +64,15 @@ RUN python3 add_member.py or python add_member.py
 
 - Faster speed
 - skip admins
+- skip bot
+- add by username or id
+- auto save last count
 - Better Error Handling 
 - auto_make config
 - Unlimited account
 - Account are used with sync so less wait time
 - Cross platform
-- First add member written in pyrogram 
+- First open source add member written in pyrogram 
 
 
 ## Support
@@ -83,9 +84,9 @@ Or join [@pyrogram-add-member](https://t.me/pyrogram_add_member)
 
 ## FAQ
 
-#### How Many Member 1 Account can add?
+#### How Many Member 20 Account can add?
 
-5-50 Member per 6 hrs
+600 - 1000 Member daily
 
 #### How Many Account are recommended 
 
@@ -114,3 +115,6 @@ other should be clear from name
 
 Yes
 
+#### My Etc wallet address
+
+0x9de7da7f7c578ab43446edef5405d88509694b34
