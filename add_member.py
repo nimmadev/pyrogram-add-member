@@ -2,7 +2,8 @@ import asyncio
 import json
 from itertools import dropwhile
 from helper.helpfun import add_mem
-
+#option for choose username or id
+option = input('choose method username or id: ').lower() 
 async def main():
         #loads member
         user_id = (json.load(open("data/user.json")))
@@ -19,6 +20,6 @@ async def main():
         active = []
         for x in dropwhile(lambda y: y != last_active, activelist):
            active.append(x)
-        await add_mem(user_id, config, active)
+        await add_mem(user_id, config, active, option)
 
 asyncio.run(main())
