@@ -1,8 +1,9 @@
 import asyncio
 import json, os, sys
+from time import sleep
 import ujson
 from pyrogram import Client, errors, enums 
-from pyrogram.errors import RPCError, FloodWait, ChatAdminRequired, PeerFlood, PeerIdInvalid, UserIdInvalid, UserPrivacyRestricted, UserRestricted, ChannelPrivate, UserNotMutualContact, PhoneNumberBanned
+from pyrogram.errors import RPCError, FloodWait, ChatAdminRequired, PeerFlood, PeerIdInvalid, UserIdInvalid, UserPrivacyRestricted, UserRestricted, ChannelPrivate, UserNotMutualContact, PhoneNumberBanned, UserChannelsTooMuch
 from pathlib import Path
 import readchar, platform, signal
 
@@ -69,7 +70,7 @@ def filterus(p1,p2,p4):
             #disconect
 
 async def get_data(gp_s_id, gp_t_id, config, stop):
-    for account in config["accounts"]:
+    for account in config['accounts']:
         phone = account["phone"]
         async with Client(phone, workdir="session") as app: 
             print(phone, "is logined") if await app.get_me() else print(phone, "login failed")
@@ -81,11 +82,11 @@ async def get_data(gp_s_id, gp_t_id, config, stop):
                		  "userid": str(member.user.id),
               		  "status": str(member.user.status),
               		  "name": str(member.user.first_name),
-                      "bot": str(member.user.is_bot),
+                      "bot": member.user.is_bot,
                       "username": str(member.user.username)
                			        }
                 except:
-              	   print('error')
+                    print('error')
                 mem.append(memb)
             print(phone, 'getting source user data')
             mem2=[] 
@@ -96,12 +97,12 @@ async def get_data(gp_s_id, gp_t_id, config, stop):
                		  "userid": str(member.user.id),
               		  "status": str(member.user.status),
               		  "name": str(member.user.first_name),
-                      "bot": str(member.user.is_bot),
+                      "bot": member.user.is_bot,
                       "username": str(member.user.username)
                       
                			        }
                 except:
-              	   print('error')
+                    print('error')
                 mem2.append(memb)
             print(phone, 'getting target user data')
             mem3=[]
@@ -109,11 +110,13 @@ async def get_data(gp_s_id, gp_t_id, config, stop):
                 try:
                     #scrap member
                     memb = {
-               		  "userid": str(member.user.id),
-               		  "name": str(member.user.first_name)
+               		"userid": str(member.user.id),
+               		"name": str(member.user.first_name),
+                    "bot": member.user.is_bot,
+                    "username": str(member.user.username)
                			        }
                 except:
-              	   print('error')
+                    print('error')
                 mem3.append(memb)
             print(phone, 'getting admin user data')
             with open('data/source_user.json', 'w', encoding='utf-8') as f:
@@ -134,10 +137,28 @@ def updatecount(count):
     with open('current_count.txt', 'w') as g:
         g.write(str(count))
         g.close()
-           
+        
 async def add_mem(user_id, config, active, method):
     chat_idt = int(str(-100) +str(config['group_target']))
     added = 0
+    print('total account trying to login',len(config['accounts']))
+    sleep(1)
+    applist = []
+    for account in config['accounts']:
+        phone = account["phone"]
+        apiid = account['api_id']
+        apihash = account['api_hash']
+        app = Client(phone,api_id=apiid, api_hash=apihash, workdir="session")
+        await app.start()
+        check = await app.get_me()
+        if check:
+            print(phone, 'login sucess')
+            applist.append({'phone': phone, 'app': app})
+        else:
+            print(phone, "login failed")
+            sleep(1)
+    print('total logind account', len(applist))
+    sleep(1)
     if method == 'username':
         usermethod = "username"
     else:
@@ -149,88 +170,100 @@ async def add_mem(user_id, config, active, method):
     except:
             counter = 0
             count = 0
-    for i in range(count, len(user_id)):
-        for account in config["accounts"]:
-            phone = account["phone"]
+    while (len(user_id) - counter) > 0:
+        for account in applist:
+            phone = account['phone']
+            app = account['app']
             user_active = user_id[counter]["status"]
-            async with Client(phone, workdir="session") as app:
-                try:
-                    if user_id[counter][usermethod] == 'None':
-                        counter += 1
-                        continue
-                    if user_id[counter]["bot"] == 'True':
-                        counter += 1
-                        continue
-                    if user_active in active:
-                        print("trying to add", user_id[counter]["userid"], 'by', phone)
-                        await app.add_chat_members(chat_id=chat_idt, user_ids=user_id[counter][usermethod])
-                        print(user_id[counter]["userid"], "added success")
-                        counter += 1
-                        added += 1
-                        print('sleep: ' + str(120 / len(config["accounts"])))
-                        await asyncio.sleep(120 / len(config["accounts"]))
-                        updatecount(counter)
-                except (GeneratorExit, SystemExit, KeyboardInterrupt) as e:
-                    try:
-                        app.stop()
-                        print(added, ": members were added")
-                        updatecount(counter)
-                    except BaseException:
-                        print(added, ": members were added")
-                        updatecount(counter)
-                except PhoneNumberBanned: 
-                    config["accounts"].remove(account)  
-                    print('phone number banned', phone)    
-                except PeerFlood:
-                    config["accounts"].remove(account)
-                    print(phone, 'has been limited by telegram wait or check spambot')
-                except FloodWait as e:
-                    config["accounts"].remove(account)
-                    print(e, 'is required for mobile no', phone)
-                except (ChatAdminRequired, ChannelPrivate):
-                    print("Chat admin permission required or Channel is private")
-                    config["accounts"].remove(account)
-                except UserRestricted:
-                    print("removing this restricted account")
-                    config["accounts"].remove(account)
-                except UserIdInvalid:
-                    print("user invalid or u never met user", phone)
-                    print('sleep: ' + str(120 / len(config["accounts"])))
-                    await asyncio.sleep(120 / len(config["accounts"]))
-                    counter +=1
-                except UserNotMutualContact:
-                    print('user is not mutal contact')
+            try:
+                if user_id[counter][usermethod] == 'None':
                     counter += 1
-                except PeerIdInvalid as e:
-                    print("if You see this line many time rerun the get_data.py")
-                    #config["accounts"].remove(account)
-                    counter +=1
+                    continue
+                if user_id[counter]["bot"]:
+                    counter += 1
+                    continue
+                if user_active in active:
+                    print("trying to add", user_id[counter]["userid"], 'by', phone)
+                    await app.add_chat_members(chat_id=chat_idt, user_ids=user_id[counter][usermethod])
+                    print(user_id[counter]["userid"], "added success")
+                    counter += 1
+                    added += 1
+                    print('sleep: ' + str(120 / len(applist)))
+                    await asyncio.sleep(120 / len(applist))
                     updatecount(counter)
-                except UserPrivacyRestricted:
-                    print("user have privacy enabled")
-                    print('sleep: ' + str(120 / len(config["accounts"])))
-                    await asyncio.sleep(120 / len(config["accounts"]))
-                    counter +=1
-                except RPCError as e:
-                    print(phone, "Rpc error")
-                    print(e)
-                    print,(user_id)
-                    print('sleep: ' + str(120 / len(config["accounts"])))
-                    await asyncio.sleep(120 / len(config["accounts"]))
-                    updatecount(counter)
-                    counter +=1
-                except BaseException as e:
-                    print(phone, "error info below")
-                    print(e)
-                    print,(user_id)
-                    print('sleep: ' + str(120 / len(config["accounts"])))
-                    await asyncio.sleep(120 / len(config["accounts"]))
-                    updatecount(counter)
-                    counter +=1
-                if config["accounts"] is False:
+                else:
+                    counter += 1
+            except (GeneratorExit, SystemExit, KeyboardInterrupt, IndexError) as e:
+                try:
+                    for x in applist:
+                        app = x['app']
+                        app.stop()
                     print(added, ": members were added")
                     updatecount(counter)
-                    break
-                if added == (30 * len(config["accounts"])):
-                    await asyncio.sleep(7000)
-                    
+                except BaseException:
+                    print(added, ": members were added")
+                    updatecount(counter)
+            except PhoneNumberBanned: 
+                applist.remove(account)  
+                app.stop()
+                print('phone number banned', phone)    
+            except PeerFlood:
+                applist.remove(account)
+                app.stop()
+                print(phone, 'has been limited by telegram wait or check spambot')
+            except UserChannelsTooMuch:
+                counter += 1
+                print('user already in too many channel')
+            except FloodWait as e:
+                applist.remove(account)
+                app.stop()
+                print(e, 'is required for mobile no', phone)
+            except (ChatAdminRequired, ChannelPrivate):
+                print("Chat admin permission required or Channel is private")
+                applist.remove(account)
+                app.stop()
+            except UserRestricted:
+                print("removing this restricted account")
+                applist.remove(account)
+                app.stop()
+            except UserIdInvalid:
+                print("user invalid or u never met user", phone)
+                print('sleep: ' + str(120 / len(applist)))
+                await asyncio.sleep(120 / len(applist))
+                counter +=1
+            except UserNotMutualContact:
+                print('user is not mutal contact')
+                counter += 1
+            except PeerIdInvalid as e:
+                print("if You see this line many time rerun the get_data.py")
+                #applist.remove(account)
+                counter +=1
+                updatecount(counter)
+            except UserPrivacyRestricted:
+                print("user have privacy enabled")
+                print('sleep: ' + str(120 / len(applist)))
+                await asyncio.sleep(120 / len(applist))
+                counter +=1
+            except RPCError as e:
+                print(phone, "Rpc error")
+                print(e)
+                print,(user_id)
+                print('sleep: ' + str(120 / len(applist)))
+                await asyncio.sleep(120 / len(applist))
+                updatecount(counter)
+                counter +=1
+            except BaseException as e:
+                print(phone, "error info below")
+                print(e)
+                print,(user_id)
+                print('sleep: ' + str(120 / len(applist)))
+                await asyncio.sleep(120 / len(applist))
+                updatecount(counter)
+                counter +=1
+            if applist is False:
+                print(added, ": members were added")
+                updatecount(counter)
+                break
+            if added == (30 * len(applist)):
+                await asyncio.sleep(7000)
+                
