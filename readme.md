@@ -14,7 +14,7 @@ This project is most optimised Telegram member adder.
 
  - [Pyrogram](https://github.com/pyrogram/pyrogram)
 
-
+ - [addmember-telegram](https://github.com/south1907/addmember-telegram)
 
 ## Authors
 
@@ -121,6 +121,20 @@ other should be clear from name
 
 Yes
 
-#### My Etc wallet address
+#### My ETH wallet address
 
 0x9de7da7f7c578ab43446edef5405d88509694b34
+
+## Contributing:
+
+* Fork the repo on Github
+
+* Clone the repo using `git clone addmember-telegram`
+
+* Make changes and stage the files: `git add .`
+
+* Commit the changes: `git commit -m "Changed a few things"`
+
+* Push the changes to your Github repo: `git push -u origin main`
+
+* Submit a pull request.
