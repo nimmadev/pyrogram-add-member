@@ -76,7 +76,7 @@ async def get_data(gp_s_id, gp_t_id, config, stop):
             print(phone, "is logined") if await app.get_me() else print(phone, "login failed")
             mem=[] 
             async for member in app.get_chat_members(chat_id=gp_s_id):
-                await asyncio.sleep(.1)
+                await asyncio.sleep(.002)
                 try:
                     #scrap member
                     memb = {
@@ -92,7 +92,7 @@ async def get_data(gp_s_id, gp_t_id, config, stop):
             print(phone, 'getting source user data')
             mem2=[] 
             async for member in app.get_chat_members(chat_id=gp_t_id):
-                await asyncio.sleep(.1)
+                await asyncio.sleep(.002)
                 try:
                     #scrap member
                     memb = {
