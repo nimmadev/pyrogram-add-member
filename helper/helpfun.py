@@ -76,6 +76,7 @@ async def get_data(gp_s_id, gp_t_id, config, stop):
             print(phone, "is logined") if await app.get_me() else print(phone, "login failed")
             mem=[] 
             async for member in app.get_chat_members(chat_id=gp_s_id):
+                await asyncio.sleep(.1)
                 try:
                     #scrap member
                     memb = {
@@ -91,6 +92,7 @@ async def get_data(gp_s_id, gp_t_id, config, stop):
             print(phone, 'getting source user data')
             mem2=[] 
             async for member in app.get_chat_members(chat_id=gp_t_id):
+                await asyncio.sleep(.1)
                 try:
                     #scrap member
                     memb = {
@@ -137,12 +139,19 @@ def updatecount(count):
     with open('current_count.txt', 'w') as g:
         g.write(str(count))
         g.close()
-        
+
+               
 async def add_mem(user_id, config, active, method):
+    try:
+        with open('current_count.txt') as f:
+            counter = int(f.read())             
+    except:
+            counter = 0
+
     chat_idt = int(str(-100) +str(config['group_target']))
     added = 0
     print('total account trying to login',len(config['accounts']))
-    sleep(1)
+    sleep(.4)
     applist = []
     for account in config['accounts']:
         phone = account["phone"]
@@ -163,24 +172,22 @@ async def add_mem(user_id, config, active, method):
         usermethod = "username"
     else:
         usermethod = "userid"
-    try:
-        with open('current_count.txt') as f:
-            counter = int(f.read())
-            count = counter               
-    except:
-            counter = 0
-            count = 0
-    while (len(user_id) - counter) > 0:
+    print(len(user_id), counter)
+    while (len(user_id) - counter) > 1:
         for account in applist:
+            if (len(user_id) - counter) == 0:
+                break
             phone = account['phone']
             app = account['app']
             user_active = user_id[counter]["status"]
             try:
                 if user_id[counter][usermethod] == 'None':
                     counter += 1
+                    updatecount(counter)
                     continue
                 if user_id[counter]["bot"]:
                     counter += 1
+                    updatecount(counter)
                     continue
                 if user_active in active:
                     print("trying to add", user_id[counter]["userid"], 'by', phone)
@@ -193,15 +200,6 @@ async def add_mem(user_id, config, active, method):
                     updatecount(counter)
                 else:
                     counter += 1
-            except (GeneratorExit, SystemExit, KeyboardInterrupt, IndexError) as e:
-                try:
-                    for x in applist:
-                        app = x['app']
-                        app.stop()
-                    print(added, ": members were added")
-                    updatecount(counter)
-                except BaseException:
-                    print(added, ": members were added")
                     updatecount(counter)
             except PhoneNumberBanned: 
                 applist.remove(account)  
@@ -214,10 +212,11 @@ async def add_mem(user_id, config, active, method):
             except UserChannelsTooMuch:
                 counter += 1
                 print('user already in too many channel')
+                updatecount(counter)
             except FloodWait as e:
                 applist.remove(account)
                 app.stop()
-                print(e, 'is required for mobile no', phone)
+                print(e.value, 'is required for mobile no', phone)
             except (ChatAdminRequired, ChannelPrivate):
                 print("Chat admin permission required or Channel is private")
                 applist.remove(account)
@@ -231,6 +230,7 @@ async def add_mem(user_id, config, active, method):
                 print('sleep: ' + str(120 / len(applist)))
                 await asyncio.sleep(120 / len(applist))
                 counter +=1
+                updatecount(counter)
             except UserNotMutualContact:
                 print('user is not mutal contact')
                 counter += 1
@@ -244,22 +244,25 @@ async def add_mem(user_id, config, active, method):
                 print('sleep: ' + str(120 / len(applist)))
                 await asyncio.sleep(120 / len(applist))
                 counter +=1
+                updatecount(counter)
+            except TimeoutError:
+                print('network problem was encounterd')
             except RPCError as e:
                 print(phone, "Rpc error")
                 print(e)
                 print,(user_id)
                 print('sleep: ' + str(120 / len(applist)))
                 await asyncio.sleep(120 / len(applist))
-                updatecount(counter)
                 counter +=1
+                updatecount(counter)
             except BaseException as e:
                 print(phone, "error info below")
                 print(e)
                 print,(user_id)
                 print('sleep: ' + str(120 / len(applist)))
                 await asyncio.sleep(120 / len(applist))
-                updatecount(counter)
                 counter +=1
+                updatecount(counter)
             if applist is False:
                 print(added, ": members were added")
                 updatecount(counter)
