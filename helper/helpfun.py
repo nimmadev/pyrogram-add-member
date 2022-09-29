@@ -3,7 +3,7 @@ import json, os, sys
 from time import sleep
 import ujson
 from pyrogram import Client, errors, enums 
-from pyrogram.errors import RPCError, FloodWait, ChatAdminRequired, PeerFlood, PeerIdInvalid, UserIdInvalid, UserPrivacyRestricted, UserRestricted, ChannelPrivate, UserNotMutualContact, PhoneNumberBanned, UserChannelsTooMuch
+from pyrogram.errors import YouBlockedUser, RPCError, FloodWait, ChatAdminRequired, PeerFlood, PeerIdInvalid, UserIdInvalid, UserPrivacyRestricted, UserRestricted, ChannelPrivate, UserNotMutualContact, PhoneNumberBanned, UserChannelsTooMuch
 from pathlib import Path
 import readchar, platform, signal
 
@@ -163,14 +163,19 @@ async def add_mem(user_id, config, active, method):
         if check:
             print('\n',phone, 'login sucess', end='\r')
             # applist.append({'phone': phone, 'app': app})
-            messegespam = await app.send_message('@spambot', '/start')
-            id = int(messegespam.id) + 1
-            messget = await  app.get_messages('@spambot', message_ids=(int(messegespam.id) + 1))
-            if str(messget.text) == "Good news, no limits are currently applied to your account. You’re free as a bird!":
+            try:
+                messegespam = await app.send_message('@spambot', '/start')
+                messget = await  app.get_messages('@spambot', message_ids=(int(messegespam.id) + 1))
+                if str(messget.text) == "Good news, no limits are currently applied to your account. You’re free as a bird!":
+                    applist.append({'phone': phone, 'app': app})
+                else:
+                    print(phone, 'is limited or disabled! will no be used for this RUN', end='\r')
+            except (BaseException, YouBlockedUser):
+                print('could not perform spam test on this', phone)
                 applist.append({'phone': phone, 'app': app})
-            else:
-                print(phone, 'is limited or disabled! will no be used for this RUN', end='\r')
                 
+                
+        
         else:
             print('\n', phone, "login failed")
             sleep(1)
