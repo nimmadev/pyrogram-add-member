@@ -76,7 +76,7 @@ async def get_data(gp_s_id, gp_t_id, config, stop):
             print(phone, "is logined") if await app.get_me() else print(phone, "login failed")
             mem=[] 
             async for member in app.get_chat_members(chat_id=gp_s_id):
-                await asyncio.sleep(.002)
+                await asyncio.sleep(.0025)
                 try:
                     #scrap member
                     memb = {
@@ -92,7 +92,7 @@ async def get_data(gp_s_id, gp_t_id, config, stop):
             print(phone, 'getting source user data')
             mem2=[] 
             async for member in app.get_chat_members(chat_id=gp_t_id):
-                await asyncio.sleep(.002)
+                await asyncio.sleep(.0025)
                 try:
                     #scrap member
                     memb = {
@@ -161,12 +161,21 @@ async def add_mem(user_id, config, active, method):
         await app.start()
         check = await app.get_me()
         if check:
-            print(phone, 'login sucess')
-            applist.append({'phone': phone, 'app': app})
+            print('\n',phone, 'login sucess', end='\r')
+            # applist.append({'phone': phone, 'app': app})
+            messegespam = await app.send_message('@spambot', '/start')
+            id = int(messegespam.id) + 1
+            messget = await  app.get_messages('@spambot', message_ids=(int(messegespam.id) + 1))
+            if str(messget.text) == "Good news, no limits are currently applied to your account. You’re free as a bird!":
+                applist.append({'phone': phone, 'app': app})
+            else:
+                print(phone, 'is limited or disabled! will no be used for this RUN', end='\r')
+                
         else:
-            print(phone, "login failed")
+            print('\n', phone, "login failed")
             sleep(1)
-    print('total logind account', len(applist))
+       
+    print('\n', 'total logind account ', len(applist))
     sleep(1)
     if method == 'username':
         usermethod = "username"

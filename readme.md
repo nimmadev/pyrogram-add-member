@@ -71,6 +71,7 @@ RUN python3 add_member.py or python add_member.py
 - Faster speed
 - skip admins
 - skip bot
+- auto check spambot
 - add by username or id
 - auto save last count
 - Better Error Handling 
