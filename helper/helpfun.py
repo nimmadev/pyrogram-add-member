@@ -217,11 +217,11 @@ async def add_mem(user_id, config, active, method):
                     updatecount(counter)
             except PhoneNumberBanned: 
                 applist.remove(account)  
-                app.stop()
+                await app.stop()
                 print('phone number banned', phone)    
             except PeerFlood:
                 applist.remove(account)
-                app.stop()
+                await app.stop()
                 print(phone, 'has been limited by telegram wait or check spambot')
             except UserChannelsTooMuch:
                 counter += 1
@@ -229,16 +229,16 @@ async def add_mem(user_id, config, active, method):
                 updatecount(counter)
             except FloodWait as e:
                 applist.remove(account)
-                app.stop()
+                await app.stop()
                 print(e.value, 'is required for mobile no', phone)
             except (ChatAdminRequired, ChannelPrivate):
                 print("Chat admin permission required or Channel is private")
                 applist.remove(account)
-                app.stop()
+                await app.stop()
             except UserRestricted:
                 print("removing this restricted account")
                 applist.remove(account)
-                app.stop()
+                await app.stop()
             except UserIdInvalid:
                 print("user invalid or u never met user", phone)
                 print('sleep: ' + str(120 / len(applist)))
