@@ -234,6 +234,7 @@ async def add_mem(user_id, config, active, method):
             except UserNotMutualContact:
                 print('user is not mutal contact')
                 counter += 1
+                updatecount(counter)
             except PeerIdInvalid as e:
                 print("if You see this line many time rerun the get_data.py")
                 #applist.remove(account)
