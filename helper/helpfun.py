@@ -278,10 +278,10 @@ async def add_mem(user_id, config, active, method):
                 await asyncio.sleep(120 / len(applist))
                 counter +=1
                 updatecount(counter)
-            if applist is False:
+            if len(applist) == 0:
                 print(added, ": members were added")
                 updatecount(counter)
-                break
+                exit()
             if added == (30 * len(applist)):
                 print(added, ": members were added")
                 await asyncio.sleep(7000)
