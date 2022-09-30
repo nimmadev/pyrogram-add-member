@@ -151,7 +151,7 @@ async def add_mem(user_id, config, active, method):
     chat_idt = int(str(-100) +str(config['group_target']))
     added = 0
     print('total account trying to login',len(config['accounts']))
-    sleep(.4)
+    await asyncio.sleep(0.4)
     applist = []
     for account in config['accounts']:
         phone = account["phone"]
