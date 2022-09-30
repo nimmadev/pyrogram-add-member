@@ -178,10 +178,10 @@ async def add_mem(user_id, config, active, method):
         
         else:
             print('\n', phone, "login failed")
-            sleep(1)
+            await asyncio.sleep(1)
        
     print('\n', 'total logind account ', len(applist))
-    sleep(1)
+    await asyncio.sleep(1)
     if method == 'username':
         usermethod = "username"
     else:
