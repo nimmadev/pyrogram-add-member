@@ -150,6 +150,8 @@ async def add_mem(user_id, config, active, method):
 
     chat_idt = int(str(-100) +str(config['group_target']))
     added = 0
+    skipped = 0
+    privacy = 0
     print('total account trying to login',len(config['accounts']))
     await asyncio.sleep(0.4)
     applist = []
@@ -214,6 +216,7 @@ async def add_mem(user_id, config, active, method):
                     updatecount(counter)
                 else:
                     counter += 1
+                    skipped += 1
                     updatecount(counter)
             except PhoneNumberBanned: 
                 applist.remove(account)  
@@ -249,6 +252,7 @@ async def add_mem(user_id, config, active, method):
             except UserNotMutualContact:
                 print('user is not mutal contact')
                 counter += 1
+                privacy += 1
                 updatecount(counter)
             except PeerIdInvalid as e:
                 print("if You see this line many time rerun the get_data.py")
@@ -260,6 +264,7 @@ async def add_mem(user_id, config, active, method):
                 print('sleep: ' + str(120 / len(applist)))
                 await asyncio.sleep(120 / len(applist))
                 counter +=1
+                privacy += 1
                 updatecount(counter)
             except TimeoutError:
                 print('network problem was encounterd')
@@ -280,10 +285,16 @@ async def add_mem(user_id, config, active, method):
                 counter +=1
                 updatecount(counter)
             if len(applist) == 0:
-                print(added, ": members were added")
+                print("")
+                print(added, " : members were added")
+                print(skipped, " : members were skipped")
+                print(privacy, " : members had privacy enable or not in mutual contact")
                 updatecount(counter)
                 exit()
             if added == (30 * len(applist)):
-                print(added, ": members were added")
+                print("")
+                print(added, " : members were added")
+                print(skipped, " : members were skipped")
+                print(privacy, " : members had privacy enable or not in mutual contact")
                 await asyncio.sleep(7000)
                 
