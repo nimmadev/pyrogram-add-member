@@ -222,6 +222,7 @@ async def add_mem(user_id, config, active, method):
             except PeerFlood:
                 applist.remove(account)
                 await app.stop()
+                counter +=1
                 print(phone, 'has been limited by telegram wait or check spambot')
             except UserChannelsTooMuch:
                 counter += 1
