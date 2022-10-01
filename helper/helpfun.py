@@ -223,7 +223,7 @@ async def add_mem(user_id, config, active, method):
                 applist.remove(account)
                 await app.stop()
                 counter +=1
-                print(phone, 'has been limited by telegram wait or check spambot')
+                print(phone, 'removed for this run')
             except UserChannelsTooMuch:
                 counter += 1
                 print('user already in too many channel')
