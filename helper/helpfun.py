@@ -297,4 +297,8 @@ async def add_mem(user_id, config, active, method):
                 print(skipped, " : members were skipped")
                 print(privacy, " : members had privacy enable or not in mutual contact")
                 await asyncio.sleep(7000)
-                
+     else:
+          print(added, " : members were added")
+          print(skipped, " : members were skipped")
+          print(privacy, " : members had privacy enable or not in mutual contact")
+               
