@@ -68,6 +68,9 @@ RUN python3 add_member.py or python add_member.py
 
 ## Features
 
+- faster get_data.py in donation version
+- unlimited scraping of members in donation version
+- 10k members scraping 
 - Faster speed
 - skip admins
 - skip bot
@@ -82,11 +85,11 @@ RUN python3 add_member.py or python add_member.py
 - First open source add member written in pyrogram 
 
 
-## Support
+## Support or donation 
 
-For support, [@R5pro](http://t.me/R5pro) on Telegram
+For donation version files, [@R5pro](http://t.me/R5pro) on Telegram
 
-Or join [@pyrogram-add-member](https://t.me/pyrogram_add_member)
+Or help and support [@pyrogram-add-member](https://t.me/pyrogram_add_member)
 
 
 ## FAQ
@@ -120,7 +123,7 @@ other should be clear from name
 
 #### Is There a Paid version Available?
 
-Yes
+Yes it's called donation version 
 
 #### My ETH wallet address
 
@@ -139,3 +142,7 @@ Yes
 * Push the changes to your Github repo: `git push -u origin main`
 
 * Submit a pull request.
+
+* Don't add feature writen in donation
+
+* Don't sell the code 😅😡
