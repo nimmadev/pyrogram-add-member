@@ -41,14 +41,15 @@ def filterus(p1,p2,p4):
             print('starting filter user')
             try: 
                 with open(p1) as f:
-                    json11 = ujson.loads(f.read())
+                    json11 = json.loads(f.read())
                 with open(p2) as b:
-                    json22 = ujson.loads(b.read())
+                    json22 = json.loads(b.read())
 
-                newjson = [user for user in json11 if not any(
-                    user["userid"] == other["userid"] for other in json22)]
+                for x in json22:
+                    if x in json11:
+                        json11.remove(x)
                 with open(p3, 'w', encoding='utf-8') as file:
-                    ujson.dump(newjson, file, ensure_ascii=False, indent=4)
+                    json.dump(json11, file, ensure_ascii=False, indent=4)
                 print("Filter process done")
             except:
                 print("failed to make filter json")
@@ -56,15 +57,14 @@ def filterus(p1,p2,p4):
         if os.path.isfile(p3):
             try:
                 with open(p3) as c:
-                    json33 = ujson.loads(c.read())
+                    json33 = json.loads(c.read())
                 with open(p4) as h:
-                    json44 = ujson.loads(h.read())
-                finaljson = [user for user in json33 if not any(
-                    user["userid"] == other["userid"] for other in json44)]
-                 
+                    json44 = json.loads(h.read())
+                for x in json44:
+                    if x in json33:
+                        json33.remove(x)
                 with open(p3, "w", encoding='utf-8') as f:
-                    ujson.dump(finaljson, f, ensure_ascii=False, indent=4)
-                
+                    json.dump(json33, f, ensure_ascii=False, indent=4)
             except:
                 print("no admin in group")
             #disconect
@@ -206,7 +206,7 @@ async def add_mem(user_id, config, active, method):
                     updatecount(counter)
                     continue
                 if user_active in active:
-                    print("trying to add", user_id[counter]["userid"], 'by', phone)
+                    print("trying to add", user_id[counter]["userid"], 'by account', applist.index(account), '/', len(applist))
                     await app.add_chat_members(chat_id=chat_idt, user_ids=user_id[counter][usermethod])
                     print(user_id[counter]["userid"], "added success")
                     counter += 1
@@ -296,7 +296,14 @@ async def add_mem(user_id, config, active, method):
                 print(added, " : members were added")
                 print(skipped, " : members were skipped")
                 print(privacy, " : members had privacy enable or not in mutual contact")
+                for app in applist:
+                    app = account['app']
+                    await app.disconnect()
+                
                 await asyncio.sleep(7000)
+                for app in applist:
+                    app = account['app']
+                    await app.connect()
     else:
           print(added, " : members were added")
           print(skipped, " : members were skipped")
