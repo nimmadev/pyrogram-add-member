@@ -18,6 +18,7 @@ def main():
             "group_target_username": input("group_target_username: "),
             "from_date_active": "UserStatus.LONG_AGO",
             "auto_join": False, #can be True or False
+            "spam_check": True, #turn on off spam check
             "accounts": []
         }
 

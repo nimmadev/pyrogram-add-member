@@ -1,11 +1,9 @@
 import asyncio
-import json, os, sys
-from time import sleep
-import ujson
-from pyrogram import Client, errors, enums 
-from pyrogram.errors import YouBlockedUser, RPCError, FloodWait, ChatAdminRequired, PeerFlood, PeerIdInvalid, UserIdInvalid, UserPrivacyRestricted, UserRestricted, ChannelPrivate, UserNotMutualContact, PhoneNumberBanned, UserChannelsTooMuch
+import json, os
+from pyrogram import Client, enums 
+from pyrogram.errors import YouBlockedUser, RPCError, FloodWait, ChatAdminRequired, PeerFlood, PeerIdInvalid, UserIdInvalid, UserPrivacyRestricted, UserRestricted, ChannelPrivate, UserNotMutualContact, PhoneNumberBanned, UserChannelsTooMuch, UserKicked
 from pathlib import Path
-import readchar, platform, signal
+
 
 ''' 
 login funtion on line 8-21
@@ -73,7 +71,22 @@ async def get_data(gp_s_id, gp_t_id, config, stop):
     for account in config['accounts']:
         phone = account["phone"]
         async with Client(phone, workdir="session") as app: 
-            print(phone, "is logined") if await app.get_me() else print(phone, "login failed")
+            if await app.get_me():
+                print(phone, "is logined")
+            else:
+                print(phone, "login failed")
+            try:
+                await app.get_chat(gp_s_id)
+            except ValueError:
+                print("%s has not joined source chat or RUN get_data.py" % phone)
+                await asyncio.sleep(1)
+                continue
+            try:
+                await app.get_chat(gp_t_id)
+            except ValueError:
+                print("%s has not joined target chat or RUN get_data.py" % phone)
+                await asyncio.sleep(1)
+                continue
             mem=[] 
             async for member in app.get_chat_members(chat_id=gp_s_id):
                 await asyncio.sleep(.0025)
@@ -161,22 +174,26 @@ async def add_mem(user_id, config, active, method):
         apihash = account['api_hash']
         app = Client(phone,api_id=apiid, api_hash=apihash, workdir="session")
         await app.start()
-        check = await app.get_me()
-        if check:
+        check = await app.get_me()    
+        spam = config["spam_check"]
+        if spam:
             print('\n',phone, 'login sucess', end='\r')
             # applist.append({'phone': phone, 'app': app})
             try:
                 messegespam = await app.send_message('@spambot', '/start')
                 messget = await  app.get_messages('@spambot', message_ids=(int(messegespam.id) + 1))
-                if str(messget.text) == "Good news, no limits are currently applied to your account. You’re free as a bird!":
+                text = str(messget.text)
+                listofnum =["1","2","3","4","5","6","7","8","9","0"]
+                checktext = [x for x in listofnum if(x in text)] 
+                if bool(checktext):
                     applist.append({'phone': phone, 'app': app})
                 else:
                     print(phone, 'is limited or disabled! will no be used for this RUN', end='\r')
             except (BaseException, YouBlockedUser):
                 print('could not perform spam test on this', phone)
                 applist.append({'phone': phone, 'app': app})
-                
-                
+        elif check:
+                applist.append({'phone': phone, 'app': app})
         
         else:
             print('\n', phone, "login failed")
@@ -218,19 +235,29 @@ async def add_mem(user_id, config, active, method):
                     counter += 1
                     skipped += 1
                     updatecount(counter)
+            except UserKicked:
+                print('this user is banned')
+                print('sleep: ' + str(120 / len(applist)))
+                await asyncio.sleep(120 / len(applist))
             except PhoneNumberBanned: 
                 applist.remove(account)  
                 await app.stop()
-                print('phone number banned', phone)    
+                print('phone number banned', phone)  
+                print('sleep: ' + str(120 / len(applist)))
+                await asyncio.sleep(120 / len(applist))  
             except PeerFlood:
                 applist.remove(account)
                 await app.stop()
                 counter +=1
                 print(phone, 'removed for this run')
+                print('sleep: ' + str(120 / len(applist)))
+                await asyncio.sleep(120 / len(applist))
             except UserChannelsTooMuch:
                 counter += 1
                 print('user already in too many channel')
                 updatecount(counter)
+                print('sleep: ' + str(120 / len(applist)))
+                await asyncio.sleep(120 / len(applist))
             except FloodWait as e:
                 applist.remove(account)
                 await app.stop()
@@ -239,6 +266,8 @@ async def add_mem(user_id, config, active, method):
                 print("Chat admin permission required or Channel is private")
                 applist.remove(account)
                 await app.stop()
+                print('sleep: ' + str(120 / len(applist)))
+                await asyncio.sleep(120 / len(applist))
             except UserRestricted:
                 print("removing this restricted account")
                 applist.remove(account)
@@ -254,11 +283,15 @@ async def add_mem(user_id, config, active, method):
                 counter += 1
                 privacy += 1
                 updatecount(counter)
+                print('sleep: ' + str(120 / len(applist)))
+                await asyncio.sleep(120 / len(applist))
             except PeerIdInvalid as e:
                 print("if You see this line many time rerun the get_data.py")
                 #applist.remove(account)
                 counter +=1
                 updatecount(counter)
+                print('sleep: ' + str(120 / len(applist)))
+                await asyncio.sleep(120 / len(applist))
             except UserPrivacyRestricted:
                 print("user have privacy enabled")
                 print('sleep: ' + str(120 / len(applist)))

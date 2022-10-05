@@ -46,6 +46,7 @@ RUN python3 make_config.py or python make_config.py
 - 4th and 5th is Group username like @r5pro
 - 6th is last time user was online [6 option available] default to Long ago Check FAQ FOR THIS ONE
 - 7, 8, 9 is phone number, api_id and api_hash
+-  AutoJoin and SpamCheck accepts [True/false] editable in  config.py after you run make_conf 
 ```
 RUN python3 login.py or python login.py 
 ```
