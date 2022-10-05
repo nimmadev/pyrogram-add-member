@@ -185,7 +185,7 @@ async def add_mem(user_id, config, active, method):
                 text = str(messget.text)
                 listofnum =["1","2","3","4","5","6","7","8","9","0"]
                 checktext = [x for x in listofnum if(x in text)] 
-                if bool(checktext):
+                if not checktext:
                     applist.append({'phone': phone, 'app': app})
                 else:
                     print(phone, 'is limited or disabled! will no be used for this RUN', end='\r')
