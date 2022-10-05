@@ -174,8 +174,11 @@ async def add_mem(user_id, config, active, method):
         apihash = account['api_hash']
         app = Client(phone,api_id=apiid, api_hash=apihash, workdir="session")
         await app.start()
-        check = await app.get_me()    
-        spam = config["spam_check"]
+        check = await app.get_me() 
+        try:   
+            spam = config["spam_check"]
+        except:
+            spam = True
         if spam:
             print('\n',phone, 'login sucess', end='\r')
             # applist.append({'phone': phone, 'app': app})
