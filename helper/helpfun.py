@@ -1,7 +1,5 @@
 import asyncio
 import json, os
-from socket import socket
-from unicodedata import ucd_3_2_0
 from pyrogram import Client, enums 
 from pyrogram.errors import YouBlockedUser, RPCError, FloodWait, ChatAdminRequired, PeerFlood, PeerIdInvalid, UserIdInvalid, UserPrivacyRestricted, UserRestricted, ChannelPrivate, UserNotMutualContact, PhoneNumberBanned, UserChannelsTooMuch, UserKicked
 from pathlib import Path
