@@ -240,6 +240,8 @@ async def add_mem(user_id, config, active, method):
                     updatecount(counter)
             except UserKicked:
                 print('this user is banned')
+                counter +=1
+                updatecount(counter)
                 print('sleep: ' + str(120 / len(applist)))
                 await asyncio.sleep(120 / len(applist))
             except PhoneNumberBanned: 
