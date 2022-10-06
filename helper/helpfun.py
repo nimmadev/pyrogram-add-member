@@ -1,5 +1,7 @@
 import asyncio
 import json, os
+from socket import socket
+from unicodedata import ucd_3_2_0
 from pyrogram import Client, enums 
 from pyrogram.errors import YouBlockedUser, RPCError, FloodWait, ChatAdminRequired, PeerFlood, PeerIdInvalid, UserIdInvalid, UserPrivacyRestricted, UserRestricted, ChannelPrivate, UserNotMutualContact, PhoneNumberBanned, UserChannelsTooMuch, UserKicked
 from pathlib import Path
@@ -164,7 +166,7 @@ async def add_mem(user_id, config, active, method):
     chat_idt = int(str(-100) +str(config['group_target']))
     added = 0
     skipped = 0
-    privacy = 0
+    privacy = uc = um = bot = noname = osr = 0
     print('total account trying to login',len(config['accounts']))
     await asyncio.sleep(0.4)
     applist = []
@@ -219,10 +221,12 @@ async def add_mem(user_id, config, active, method):
             try:
                 if user_id[counter][usermethod] == 'None':
                     counter += 1
+                    noname += 1
                     updatecount(counter)
                     continue
                 if user_id[counter]["bot"]:
                     counter += 1
+                    bot += 1
                     updatecount(counter)
                     continue
                 if user_active in active:
@@ -259,6 +263,7 @@ async def add_mem(user_id, config, active, method):
                 await asyncio.sleep(120 / len(applist))
             except UserChannelsTooMuch:
                 counter += 1
+                uc += 1
                 print('user already in too many channel')
                 updatecount(counter)
                 print('sleep: ' + str(120 / len(applist)))
@@ -286,7 +291,7 @@ async def add_mem(user_id, config, active, method):
             except UserNotMutualContact:
                 print('user is not mutal contact')
                 counter += 1
-                privacy += 1
+                mu += 1
                 updatecount(counter)
                 print('sleep: ' + str(120 / len(applist)))
                 await asyncio.sleep(120 / len(applist))
@@ -314,6 +319,8 @@ async def add_mem(user_id, config, active, method):
                 await asyncio.sleep(120 / len(applist))
                 counter +=1
                 updatecount(counter)
+            except OSError:
+                osr +=1
             except BaseException as e:
                 print(phone, "error info below")
                 print(e)
@@ -327,14 +334,43 @@ async def add_mem(user_id, config, active, method):
                 print(added, " : members were added")
                 print(skipped, " : members were skipped")
                 print(privacy, " : members had privacy enable or not in mutual contact")
+                print(uc, " : user banned in chat")
+                print(um, " : members not in mutual contact")
+                print("%s bot accont skipped" % bot)
+                if method == 'username':
+                    print("%s accont has no usernames" % noname)
                 updatecount(counter)
                 exit()
+            if osr == 30:
+                print("network issue try later")
+                print(added, " : members were added")
+                print(skipped, " : members were skipped")
+                print(privacy, " : members had privacy enable or not in mutual contact")
+                print(uc, " : user banned in chat")
+                print(um, " : members not in mutual contact")
+                print("%s bot accont skipped" % bot)
+                if method == 'username':
+                    print("%s accont has no usernames" % noname)
+                updatecount(counter)
+                for app in applist:
+                    app = account['app']
+                    await app.stop()
+                await asyncio.sleep(7000)
+                for app in applist:
+                    app = account['app']
+                    await app.start()
             try:
                 if added == (30 * len(applist)):
                     print("")
                     print(added, " : members were added")
                     print(skipped, " : members were skipped")
                     print(privacy, " : members had privacy enable or not in mutual contact")
+                    print(uc, " : user banned in chat")
+                    print(um, " : members not in mutual contact")
+                    print("%s bot accont skipped" % bot)
+                    if method == 'username':
+                        print("%s accont has no usernames" % noname)
+                    updatecount(counter)
                     for app in applist:
                         app = account['app']
                         await app.stop()
@@ -347,6 +383,12 @@ async def add_mem(user_id, config, active, method):
                 print(added, " : members were added")
                 print(skipped, " : members were skipped")
                 print(privacy, " : members had privacy enable or not in mutual contact")
+                print(uc, " : user banned in chat")
+                print(um, " : members not in mutual contact")
+                print("%s bot accont skipped" % bot)
+                if method == 'username':
+                    print("%s accont has no usernames" % noname)
+                updatecount(counter)
                 for app in applist:
                     app = account['app']
                     await app.stop()
@@ -356,7 +398,14 @@ async def add_mem(user_id, config, active, method):
                     app = account['app']
                     await app.start()
     else:
-          print(added, " : members were added")
-          print(skipped, " : members were skipped")
-          print(privacy, " : members had privacy enable or not in mutual contact")
+        print("")
+        print(added, " : members were added")
+        print(skipped, " : members were skipped")
+        print(privacy, " : members had privacy enable or not in mutual contact")
+        print(uc, " : user banned in chat")
+        print(um, " : members not in mutual contact")
+        print("%s bot accont skipped" % bot)
+        if method == 'username':
+            print("%s accont has no usernames" % noname)
+        updatecount(counter)
                
