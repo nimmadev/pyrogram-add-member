@@ -327,7 +327,8 @@ async def add_mem(user_id, config, active, method):
                 print(privacy, " : members had privacy enable or not in mutual contact")
                 updatecount(counter)
                 exit()
-            if added == (30 * len(applist)):
+            try:
+                added == (30 * len(applist))
                 print("")
                 print(added, " : members were added")
                 print(skipped, " : members were skipped")
@@ -335,7 +336,19 @@ async def add_mem(user_id, config, active, method):
                 for app in applist:
                     app = account['app']
                     await app.disconnect()
-                
+                await asyncio.sleep(7000)
+                for app in applist:
+                    app = account['app']
+                    await app.connect()
+            except ZeroDivisionError:
+                print("")
+                print(added, " : members were added")
+                print(skipped, " : members were skipped")
+                print(privacy, " : members had privacy enable or not in mutual contact")
+                for app in applist:
+                    app = account['app']
+                    await app.disconnect()
+                                                                                                                                        
                 await asyncio.sleep(7000)
                 for app in applist:
                     app = account['app']
