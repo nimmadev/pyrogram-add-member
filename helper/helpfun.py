@@ -346,17 +346,12 @@ async def add_mem(user_id, config, active, method):
                 print(privacy, " : members had privacy enable or not in mutual contact")
                 print(uc, " : user banned in chat")
                 print(um, " : members not in mutual contact")
-                print("%s bot accont skipped" % bot)
+                print("%s : bot accont skipped" % bot)
                 if method == 'username':
-                    print("%s accont has no usernames" % noname)
+                    print("%s : accont has no usernames" % noname)
                 updatecount(counter)
-                for app in applist:
-                    app = account['app']
-                    await app.stop()
+        
                 await asyncio.sleep(7000)
-                for app in applist:
-                    app = account['app']
-                    await app.start()
             try:
                 if added == (30 * len(applist)):
                     print("")
@@ -369,13 +364,7 @@ async def add_mem(user_id, config, active, method):
                     if method == 'username':
                         print("%s accont has no usernames" % noname)
                     updatecount(counter)
-                    for app in applist:
-                        app = account['app']
-                        await app.stop()
                     await asyncio.sleep(7000)
-                    for app in applist:
-                        app = account['app']
-                        await app.start()
             except ZeroDivisionError:
                 print("")
                 print(added, " : members were added")
@@ -383,18 +372,12 @@ async def add_mem(user_id, config, active, method):
                 print(privacy, " : members had privacy enable or not in mutual contact")
                 print(uc, " : user banned in chat")
                 print(um, " : members not in mutual contact")
-                print("%s bot accont skipped" % bot)
+                print("%s : bot accont skipped" % bot)
                 if method == 'username':
-                    print("%s accont has no usernames" % noname)
+                    print("%s : accont has no usernames" % noname)
                 updatecount(counter)
-                for app in applist:
-                    app = account['app']
-                    await app.stop()
-                                                                                                                                        
                 await asyncio.sleep(7000)
-                for app in applist:
-                    app = account['app']
-                    await app.start()
+
     else:
         print("")
         print(added, " : members were added")
@@ -402,8 +385,8 @@ async def add_mem(user_id, config, active, method):
         print(privacy, " : members had privacy enable or not in mutual contact")
         print(uc, " : user banned in chat")
         print(um, " : members not in mutual contact")
-        print("%s bot accont skipped" % bot)
+        print("%s :  bot accont skipped" % bot)
         if method == 'username':
-            print("%s accont has no usernames" % noname)
+            print("%s : accont has no usernames" % noname)
         updatecount(counter)
                
