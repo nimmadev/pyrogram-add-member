@@ -289,7 +289,7 @@ async def add_mem(user_id, config, active, method):
             except UserNotMutualContact:
                 print('user is not mutal contact')
                 counter += 1
-                mu += 1
+                um += 1
                 updatecount(counter)
                 print('sleep: ' + str(120 / len(applist)))
                 await asyncio.sleep(120 / len(applist))
