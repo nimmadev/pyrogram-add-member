@@ -330,18 +330,18 @@ async def add_mem(user_id, config, active, method):
                 updatecount(counter)
                 exit()
             try:
-                added == (30 * len(applist))
-                print("")
-                print(added, " : members were added")
-                print(skipped, " : members were skipped")
-                print(privacy, " : members had privacy enable or not in mutual contact")
-                for app in applist:
-                    app = account['app']
-                    await app.disconnect()
-                await asyncio.sleep(7000)
-                for app in applist:
-                    app = account['app']
-                    await app.connect()
+                if added == (30 * len(applist)):
+                    print("")
+                    print(added, " : members were added")
+                    print(skipped, " : members were skipped")
+                    print(privacy, " : members had privacy enable or not in mutual contact")
+                    for app in applist:
+                        app = account['app']
+                        await app.stop()
+                    await asyncio.sleep(7000)
+                    for app in applist:
+                        app = account['app']
+                        await app.start()
             except ZeroDivisionError:
                 print("")
                 print(added, " : members were added")
@@ -349,12 +349,12 @@ async def add_mem(user_id, config, active, method):
                 print(privacy, " : members had privacy enable or not in mutual contact")
                 for app in applist:
                     app = account['app']
-                    await app.disconnect()
+                    await app.stop()
                                                                                                                                         
                 await asyncio.sleep(7000)
                 for app in applist:
                     app = account['app']
-                    await app.connect()
+                    await app.start()
     else:
           print(added, " : members were added")
           print(skipped, " : members were skipped")
