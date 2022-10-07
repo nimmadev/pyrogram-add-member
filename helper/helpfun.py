@@ -273,8 +273,12 @@ async def add_mem(user_id, config, active, method):
                 await app.stop()
                 counter +=1
                 print(phone, 'removed for this run')
-                print('sleep: ' + str(120 / len(applist)))
-                await asyncio.sleep(120 / len(applist))
+                try: 
+                    print('sleep: ' + str(120 / len(applist)))
+                    await asyncio.sleep(120 / len(applist))
+                except:
+                    printall()
+                    break
             except UserChannelsTooMuch:
                 counter += 1
                 uc += 1
