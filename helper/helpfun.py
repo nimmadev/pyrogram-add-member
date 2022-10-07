@@ -3,6 +3,7 @@ import json, os
 from pyrogram import Client, enums 
 from pyrogram.errors import YouBlockedUser, RPCError, FloodWait, ChatAdminRequired, PeerFlood, PeerIdInvalid, UserIdInvalid, UserPrivacyRestricted, UserRestricted, ChannelPrivate, UserNotMutualContact, PhoneNumberBanned, UserChannelsTooMuch, UserKicked
 from pathlib import Path
+from datetime import datetime
 
 
 ''' 
@@ -165,6 +166,18 @@ async def add_mem(user_id, config, active, method):
     added = 0
     skipped = 0
     privacy = uc = um = bot = noname = osr = 0
+    def printfinal():
+        print("")
+        print(added, " : members were added")
+        print(skipped, " : members were skipped")
+        print(privacy, " : members had privacy enable or not in mutual contact")
+        print(uc, " : user banned in chat")
+        print(um, " : members not in mutual contact")
+        print("%s :  bot accont skipped" % bot)
+        if method == 'username':
+            print("%s : accont has no usernames" % noname)
+        updatecount(counter)
+        print(datetime.now().strftime("%H:%M:%S"))
     print('total account trying to login',len(config['accounts']))
     await asyncio.sleep(0.4)
     applist = []
@@ -212,6 +225,9 @@ async def add_mem(user_id, config, active, method):
     while (len(user_id) - counter) > 1:
         for account in applist:
             if (len(user_id) - counter) == 0:
+                break
+            if len(applist) == 0:
+                printfinal()
                 break
             phone = account['phone']
             app = account['app']
@@ -327,66 +343,18 @@ async def add_mem(user_id, config, active, method):
                 await asyncio.sleep(120 / len(applist))
                 counter +=1
                 updatecount(counter)
-            if len(applist) == 0:
-                print("")
-                print(added, " : members were added")
-                print(skipped, " : members were skipped")
-                print(privacy, " : members had privacy enable or not in mutual contact")
-                print(uc, " : user banned in chat")
-                print(um, " : members not in mutual contact")
-                print("%s bot accont skipped" % bot)
-                if method == 'username':
-                    print("%s accont has no usernames" % noname)
-                updatecount(counter)
-                exit()
             if osr == 30:
-                print("network issue try later")
-                print(added, " : members were added")
-                print(skipped, " : members were skipped")
-                print(privacy, " : members had privacy enable or not in mutual contact")
-                print(uc, " : user banned in chat")
-                print(um, " : members not in mutual contact")
-                print("%s : bot accont skipped" % bot)
-                if method == 'username':
-                    print("%s : accont has no usernames" % noname)
-                updatecount(counter)
+                printfinal()
         
-                await asyncio.sleep(7000)
+                await asyncio.sleep(700)
             try:
                 if added == (30 * len(applist)):
-                    print("")
-                    print(added, " : members were added")
-                    print(skipped, " : members were skipped")
-                    print(privacy, " : members had privacy enable or not in mutual contact")
-                    print(uc, " : user banned in chat")
-                    print(um, " : members not in mutual contact")
-                    print("%s bot accont skipped" % bot)
-                    if method == 'username':
-                        print("%s accont has no usernames" % noname)
-                    updatecount(counter)
+                    printfinal()
                     await asyncio.sleep(7000)
             except ZeroDivisionError:
-                print("")
-                print(added, " : members were added")
-                print(skipped, " : members were skipped")
-                print(privacy, " : members had privacy enable or not in mutual contact")
-                print(uc, " : user banned in chat")
-                print(um, " : members not in mutual contact")
-                print("%s : bot accont skipped" % bot)
-                if method == 'username':
-                    print("%s : accont has no usernames" % noname)
-                updatecount(counter)
+                printfinal()
                 await asyncio.sleep(7000)
 
     else:
-        print("")
-        print(added, " : members were added")
-        print(skipped, " : members were skipped")
-        print(privacy, " : members had privacy enable or not in mutual contact")
-        print(uc, " : user banned in chat")
-        print(um, " : members not in mutual contact")
-        print("%s :  bot accont skipped" % bot)
-        if method == 'username':
-            print("%s : accont has no usernames" % noname)
-        updatecount(counter)
+        printfinal()
                
