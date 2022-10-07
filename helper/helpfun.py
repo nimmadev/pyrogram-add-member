@@ -177,7 +177,7 @@ async def add_mem(user_id, config, active, method):
         if method == 'username':
             print("%s : accont has no usernames" % noname)
         updatecount(counter)
-        print(datetime.now().strftime("%H:%M:%S"))
+        
     print('total account trying to login',len(config['accounts']))
     await asyncio.sleep(0.4)
     applist = []
@@ -354,11 +354,26 @@ async def add_mem(user_id, config, active, method):
             try:
                 if added == (30 * len(applist)):
                     printfinal()
+                    print()
+                    print("Sleeping for two hours")
+                    print()
+                    now = datetime.now()
+                    end = datetime.now() + timedelta(hours=2)
+                    print("Sleep started at : ", now.strftime("%H:%M:%S"))
+                    print("Sleep End at : ", end.strftime("%H:%M:%S"))
                     await asyncio.sleep(7000)
             except ZeroDivisionError:
                 printfinal()
+                print()
+                print("Sleeping for two hours")
+                print()
+                now = datetime.now()
+                end = datetime.now() + timedelta(hours=2)
+                print("Sleep started at : ", now.strftime("%H:%M:%S"))
+                print("Sleep End at : ", end.strftime("%H:%M:%S"))
                 await asyncio.sleep(7000)
 
     else:
         printfinal()
+    
                
