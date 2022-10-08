@@ -352,7 +352,7 @@ async def add_mem(user_id, config, active, method):
         
                 await asyncio.sleep(700)
             try:
-                if added == (30 * len(applist)):
+                if added == (1):
                     printfinal()
                     print()
                     print("Sleeping for two hours")
@@ -362,7 +362,9 @@ async def add_mem(user_id, config, active, method):
                     print("Sleep started at : ", now.strftime("%H:%M:%S"))
                     print("Sleep End at : ", end.strftime("%H:%M:%S"))
                     await app.stop()
-                    await asyncio.sleep(7000)
+                    await asyncio.sleep(3500)
+                    print("1 hour left to continue")
+                    await asyncio.sleep(3500)
                     applist.clear()
                     addlogin()
 
@@ -374,9 +376,12 @@ async def add_mem(user_id, config, active, method):
                 now = datetime.now()
                 end = datetime.now() + timedelta(hours=2)
                 print("Sleep started at : ", now.strftime("%H:%M:%S"))
-                await app.stop()
                 print("Sleep End at : ", end.strftime("%H:%M:%S"))
-                await asyncio.sleep(7000)
+                await app.stop()
+                await asyncio.sleep(3500)
+                print("1 hour left to continue")
+                await asyncio.sleep(3500)
+                
                 applist.clear()
                 await addlogin()
 
