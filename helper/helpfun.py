@@ -352,7 +352,7 @@ async def add_mem(user_id, config, active, method):
         
                 await asyncio.sleep(700)
             try:
-                if added == (1):
+                if added == (30 * len(applist)):
                     printfinal()
                     print()
                     print("Sleeping for two hours")
