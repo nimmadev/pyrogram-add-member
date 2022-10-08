@@ -361,13 +361,10 @@ async def add_mem(user_id, config, active, method):
                     end = datetime.now() + timedelta(hours=2)
                     print("Sleep started at : ", now.strftime("%H:%M:%S"))
                     print("Sleep End at : ", end.strftime("%H:%M:%S"))
-                    await app.stop()
                     await asyncio.sleep(3500)
                     print("1 hour left to continue")
                     await asyncio.sleep(3500)
-                    applist.clear()
-                    await addlogin()
-
+                    
             except ZeroDivisionError:
                 printfinal()
                 print()
@@ -377,13 +374,9 @@ async def add_mem(user_id, config, active, method):
                 end = datetime.now() + timedelta(hours=2)
                 print("Sleep started at : ", now.strftime("%H:%M:%S"))
                 print("Sleep End at : ", end.strftime("%H:%M:%S"))
-                await app.stop()
                 await asyncio.sleep(3500)
                 print("1 hour left to continue")
                 await asyncio.sleep(3500)
-                
-                applist.clear()
-                await addlogin()
 
     else:
         printfinal()
