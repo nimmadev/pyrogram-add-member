@@ -186,7 +186,7 @@ async def add_mem(user_id, config, active, method):
             phone = account["phone"]
             apiid = account['api_id']
             apihash = account['api_hash']
-            app = Client(phone,api_id=apiid, api_hash=apihash, ipv6= True, workdir="session")
+            app = Client(phone,api_id=apiid, api_hash=apihash, workdir="session")
             await app.start()
             check = await app.get_me() 
             try:   
