@@ -366,7 +366,7 @@ async def add_mem(user_id, config, active, method):
                     print("1 hour left to continue")
                     await asyncio.sleep(3500)
                     applist.clear()
-                    addlogin()
+                    await addlogin()
 
             except ZeroDivisionError:
                 printfinal()
