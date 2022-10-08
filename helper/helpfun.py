@@ -177,44 +177,45 @@ async def add_mem(user_id, config, active, method):
         if method == 'username':
             print("%s : accont has no usernames" % noname)
         updatecount(counter)
-        
+        print(datetime.now().strftime("%H:%M:%S"))
     print('total account trying to login',len(config['accounts']))
     await asyncio.sleep(0.4)
     applist = []
-    for account in config['accounts']:
-        phone = account["phone"]
-        apiid = account['api_id']
-        apihash = account['api_hash']
-        app = Client(phone,api_id=apiid, api_hash=apihash, workdir="session")
-        await app.start()
-        check = await app.get_me() 
-        try:   
-            spam = config["spam_check"]
-        except:
-            spam = True
-        if spam:
-            print('\n',phone, 'login sucess', end='\r')
+    async def addlogin():
+        for account in config['accounts']:
+            phone = account["phone"]
+            apiid = account['api_id']
+            apihash = account['api_hash']
+            app = Client(phone,api_id=apiid, api_hash=apihash, ipv6= True, workdir="session")
+            await app.start()
+            check = await app.get_me() 
+            try:   
+                spam = config["spam_check"]
+            except:
+                spam = True
+            if spam:
+                print('\n',phone, 'login sucess', end='\r')
             # applist.append({'phone': phone, 'app': app})
-            try:
-                messegespam = await app.send_message('@spambot', '/start')
-                messget = await  app.get_messages('@spambot', message_ids=(int(messegespam.id) + 1))
-                text = str(messget.text)
-                listofnum =["1","2","3","4","5","6","7","8","9","0"]
-                checktext = [x for x in listofnum if(x in text)] 
-                if not checktext:
+                try:
+                    messegespam = await app.send_message('@spambot', '/start')
+                    messget = await  app.get_messages('@spambot', message_ids=(int(messegespam.id) + 1))
+                    text = str(messget.text)
+                    listofnum =["1","2","3","4","5","6","7","8","9","0"]
+                    checktext = [x for x in listofnum if(x in text)] 
+                    if not checktext:
+                        applist.append({'phone': phone, 'app': app})
+                    else:
+                        print(phone, 'is limited or disabled! will no be used for this RUN', end='\r')
+                except (BaseException, YouBlockedUser):
+                    print('could not perform spam test on this', phone)
                     applist.append({'phone': phone, 'app': app})
-                else:
-                    print(phone, 'is limited or disabled! will no be used for this RUN', end='\r')
-            except (BaseException, YouBlockedUser):
-                print('could not perform spam test on this', phone)
-                applist.append({'phone': phone, 'app': app})
-        elif check:
+            elif check:
                 applist.append({'phone': phone, 'app': app})
         
-        else:
-            print('\n', phone, "login failed")
-            await asyncio.sleep(1)
-       
+            else:
+                print('\n', phone, "login failed")
+                await asyncio.sleep(1)
+    await addlogin()
     print('\n', 'total logind account ', len(applist))
     await asyncio.sleep(1)
     if method == 'username':
@@ -277,8 +278,7 @@ async def add_mem(user_id, config, active, method):
                     print('sleep: ' + str(120 / len(applist)))
                     await asyncio.sleep(120 / len(applist))
                 except:
-                    printall()
-                    break
+                    printfinal()
             except UserChannelsTooMuch:
                 counter += 1
                 uc += 1
@@ -289,7 +289,7 @@ async def add_mem(user_id, config, active, method):
             except FloodWait as e:
                 applist.remove(account)
                 await app.stop()
-                print(e.value, 'is required for mobile no', phone)
+                print('%s seconds sleep is required for the account %s' %(e.value, phone))
             except (ChatAdminRequired, ChannelPrivate):
                 print("Chat admin permission required or Channel is private")
                 applist.remove(account)
@@ -362,6 +362,9 @@ async def add_mem(user_id, config, active, method):
                     print("Sleep started at : ", now.strftime("%H:%M:%S"))
                     print("Sleep End at : ", end.strftime("%H:%M:%S"))
                     await asyncio.sleep(7000)
+                    applist.clear
+                    addlogin()
+
             except ZeroDivisionError:
                 printfinal()
                 print()
@@ -372,8 +375,9 @@ async def add_mem(user_id, config, active, method):
                 print("Sleep started at : ", now.strftime("%H:%M:%S"))
                 print("Sleep End at : ", end.strftime("%H:%M:%S"))
                 await asyncio.sleep(7000)
+                applist.clear
+                await addlogin()
 
     else:
         printfinal()
     
-               
