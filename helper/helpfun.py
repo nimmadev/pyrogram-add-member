@@ -13,6 +13,10 @@ get-member function on line 61-114
 update count 118-224
 add-member function on line 226-
 '''
+def updatecount(count):
+    with open('current_count.txt', 'w') as g:
+        g.write(str(count))
+        g.close()
 
 
 async def login(phone, api_id, api_hash, auto_join, group_target_id, group_source_id):
@@ -69,6 +73,11 @@ def filterus(p1,p2,p4):
             #disconect
 
 async def get_data(gp_s_id, gp_t_id, config, stop):
+    count = 0
+    try:
+        updatecount(count)
+    except:
+        pass
     for account in config['accounts']:
         phone = account["phone"]
         async with Client(phone, workdir="session") as app: 
@@ -149,11 +158,6 @@ async def get_data(gp_s_id, gp_t_id, config, stop):
             break
             # refresh hash acces for all accounts 
  
-def updatecount(count):
-    with open('current_count.txt', 'w') as g:
-        g.write(str(count))
-        g.close()
-
                
 async def add_mem(user_id, config, active, method):
     try:
