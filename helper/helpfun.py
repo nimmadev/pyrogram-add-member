@@ -74,7 +74,8 @@ def filterus(p1,p2,p4):
 
 async def get_data(gp_s_id, gp_t_id, config, stop):
     try:
-        updatecount(0)
+        count = 0
+        updatecount(count)
     except:
         print('edjt ur current count file to 0 if exist')
     for account in config['accounts']:
