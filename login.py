@@ -8,8 +8,8 @@ group_target_id=str(config['group_target_username'])
 auto_join=bool(config['auto_join'])
 async def loginall():
     for account in config['accounts']:
-        phone = int(account['phone'])
-        api_id = account['api_id']
+        phone = account['phone']
+        api_id = int(account['api_id'])
         api_hash = account['api_hash']
         print(phone)
         await login(phone, api_id, api_hash, auto_join,group_target_id, group_source_id)
