@@ -73,11 +73,10 @@ def filterus(p1,p2,p4):
             #disconect
 
 async def get_data(gp_s_id, gp_t_id, config, stop):
-    count = 0
     try:
-        updatecount(count)
+        updatecount(0)
     except:
-        pass
+        print('edjt ur current count file to 0 if exist')
     for account in config['accounts']:
         phone = account["phone"]
         async with Client(phone, workdir="session") as app: 
