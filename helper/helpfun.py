@@ -98,6 +98,7 @@ async def get_data(gp_s_id, gp_t_id, config, stop):
                 await asyncio.sleep(1)
                 continue
             mem=[] 
+            print(phone, 'getting source user data')
             async for member in app.get_chat_members(chat_id=gp_s_id):
                 await asyncio.sleep(.0025)
                 try:
@@ -108,51 +109,58 @@ async def get_data(gp_s_id, gp_t_id, config, stop):
               		  "name": str(member.user.first_name),
                       "bot": member.user.is_bot,
                       "username": str(member.user.username)
-               			        }
+              	       }
+                    mem.append(memb)
+                         
                 except:
                     print('error')
-                mem.append(memb)
-            print(phone, 'getting source user data')
-            mem2=[] 
-            async for member in app.get_chat_members(chat_id=gp_t_id):
-                await asyncio.sleep(.0025)
-                try:
+      
+        print(phone, 'getting target user data')
+        mem2=[] 
+        async for member in app.get_chat_members(chat_id=gp_t_id):
+            await asyncio.sleep(.0025)
+            try:
                     #scrap member
-                    memb = {
-               		  "userid": str(member.user.id),
+                memb = {
+                      "userid": str(member.user.id),
               		  "status": str(member.user.status),
               		  "name": str(member.user.first_name),
                       "bot": member.user.is_bot,
                       "username": str(member.user.username)
-                      
-               			        }
-                except:
-                    print('error')
+   			        }
+   			     
                 mem2.append(memb)
-            print(phone, 'getting target user data')
-            mem3=[]
-            async for member in app.get_chat_members(chat_id=gp_s_id, filter=enums.ChatMembersFilter.ADMINISTRATORS):
-                try:
+            except:
+                print('error')
+           
+        print(phone, 'getting source admin data')
+        mem3=[]
+        async for member in app.get_chat_members(chat_id=gp_t_id):
+            await asyncio.sleep(.0025)
+            try:
                     #scrap member
-                    memb = {
-               		"userid": str(member.user.id),
-               		"name": str(member.user.first_name),
-                    "bot": member.user.is_bot,
-                    "username": str(member.user.username)
-               			        }
-                except:
-                    print('error')
+                memb = {
+                      "userid": str(member.user.id),
+              		  "status": str(member.user.status),
+              		  "name": str(member.user.first_name),
+                      "bot": member.user.is_bot,
+                      "username": str(member.user.username)
+   			        }
+   	            
                 mem3.append(memb)
-            print(phone, 'getting admin user data')
-            with open('data/source_user.json', 'w', encoding='utf-8') as f:
-                json.dump(mem, f, indent=4, ensure_ascii=False)
-                print("saving source user")
-            with open('data/target_user.json', 'w', encoding='utf-8') as f:
-                json.dump(mem2, f, indent=4, ensure_ascii=False)
-                print("saving target user")
-            with open('data/source_admin.json', 'w', encoding='utf-8') as f:
-                json.dump(mem3, f, indent=4, ensure_ascii=False)
-                print("saving admin user")
+            except:
+                print('error')
+            
+
+        with open('data/source_user.json', 'w', encoding='utf-8') as f:
+            json.dump(mem, f, indent=4, ensure_ascii=False)
+            print("saving source user")
+        with open('data/target_user.json', 'w', encoding='utf-8') as f:
+            json.dump(mem2, f, indent=4, ensure_ascii=False)
+            print("saving target user")
+        with open('data/source_admin.json', 'w', encoding='utf-8') as f:
+            json.dump(mem3, f, indent=4, ensure_ascii=False)
+            print("saving admin user")
                 
         if "username" == stop:
             break
@@ -365,6 +373,7 @@ async def add_mem(user_id, config, active, method):
                     end = datetime.now() + timedelta(hours=2)
                     print("Sleep started at : ", now.strftime("%H:%M:%S"))
                     print("Sleep End at : ", end.strftime("%H:%M:%S"))
+                    added = 0
                     await asyncio.sleep(3500)
                     print("1 hour left to continue")
                     await asyncio.sleep(3500)
@@ -378,6 +387,7 @@ async def add_mem(user_id, config, active, method):
                 end = datetime.now() + timedelta(hours=2)
                 print("Sleep started at : ", now.strftime("%H:%M:%S"))
                 print("Sleep End at : ", end.strftime("%H:%M:%S"))
+                added = 0
                 await asyncio.sleep(3500)
                 print("1 hour left to continue")
                 await asyncio.sleep(3500)
