@@ -19,6 +19,7 @@ def main():
             "from_date_active": "UserStatus.LONG_AGO",
             "auto_join": False, #can be True or False
             "spam_check": True, #turn on off spam check
+            "wait_time": 120, #time to wait after adding
             "accounts": []
         }
 

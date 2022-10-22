@@ -4,6 +4,9 @@
 	"group_source_username": "https://t.me/",
 	"group_target_username": "https://t.me/",
 	"from_date_active": "",
+	"auto_join": false,
+	"spam_check": true,
+	"wait_time": 120,
 	"accounts": [
 		{
 			"phone": "+84XXXX",
