@@ -190,6 +190,10 @@ async def add_mem(user_id, config, active, method):
     chat_idt = int(str(-100) +str(config['group_target']))
     added = 0
     skipped = 0
+    try:
+        waittime = config["wait_time"]
+    except:
+        waittime = 120
     privacy = uc = um = bot = noname = osr = 0
     def printfinal():
         print("")
@@ -275,8 +279,8 @@ async def add_mem(user_id, config, active, method):
                     print(user_id[counter]["userid"], "added success")
                     counter += 1
                     added += 1
-                    print('sleep: ' + str(120 / len(applist)))
-                    await asyncio.sleep(120 / len(applist))
+                    print('sleep: ' + str(waittime / len(applist)))
+                    await asyncio.sleep(waittime / len(applist))
                     updatecount(counter)
                 else:
                     counter += 1
@@ -286,22 +290,22 @@ async def add_mem(user_id, config, active, method):
                 print('this user is banned')
                 counter +=1
                 updatecount(counter)
-                print('sleep: ' + str(120 / len(applist)))
-                await asyncio.sleep(120 / len(applist))
+                print('sleep: ' + str(waittime / len(applist)))
+                await asyncio.sleep(waittime / len(applist))
             except PhoneNumberBanned: 
                 applist.remove(account)  
                 await app.stop()
                 print('phone number banned', phone)  
-                print('sleep: ' + str(120 / len(applist)))
-                await asyncio.sleep(120 / len(applist))  
+                print('sleep: ' + str(waittime / len(applist)))
+                await asyncio.sleep(waittime / len(applist))  
             except PeerFlood:
                 applist.remove(account)
                 await app.stop()
                 counter +=1
                 print(phone, 'removed for this run')
                 try: 
-                    print('sleep: ' + str(120 / len(applist)))
-                    await asyncio.sleep(120 / len(applist))
+                    print('sleep: ' + str(waittime / len(applist)))
+                    await asyncio.sleep(waittime / len(applist))
                 except:
                     printfinal()
             except UserChannelsTooMuch:
@@ -309,8 +313,8 @@ async def add_mem(user_id, config, active, method):
                 uc += 1
                 print('user already in too many channel')
                 updatecount(counter)
-                print('sleep: ' + str(120 / len(applist)))
-                await asyncio.sleep(120 / len(applist))
+                print('sleep: ' + str(waittime / len(applist)))
+                await asyncio.sleep(waittime / len(applist))
             except FloodWait as e:
                 applist.remove(account)
                 await app.stop()
@@ -319,16 +323,16 @@ async def add_mem(user_id, config, active, method):
                 print("Chat admin permission required or Channel is private")
                 applist.remove(account)
                 await app.stop()
-                print('sleep: ' + str(120 / len(applist)))
-                await asyncio.sleep(120 / len(applist))
+                print('sleep: ' + str(waittime / len(applist)))
+                await asyncio.sleep(waittime / len(applist))
             except UserRestricted:
                 print("removing this restricted account")
                 applist.remove(account)
                 await app.stop()
             except UserIdInvalid:
                 print("user invalid or u never met user", phone)
-                print('sleep: ' + str(120 / len(applist)))
-                await asyncio.sleep(120 / len(applist))
+                print('sleep: ' + str(waittime / len(applist)))
+                await asyncio.sleep(waittime / len(applist))
                 counter +=1
                 updatecount(counter)
             except UserNotMutualContact:
@@ -336,19 +340,19 @@ async def add_mem(user_id, config, active, method):
                 counter += 1
                 um += 1
                 updatecount(counter)
-                print('sleep: ' + str(120 / len(applist)))
-                await asyncio.sleep(120 / len(applist))
+                print('sleep: ' + str(waittime / len(applist)))
+                await asyncio.sleep(waittime / len(applist))
             except PeerIdInvalid as e:
                 print("if You see this line many time rerun the get_data.py")
                 #applist.remove(account)
                 counter +=1
                 updatecount(counter)
-                print('sleep: ' + str(120 / len(applist)))
-                await asyncio.sleep(120 / len(applist))
+                print('sleep: ' + str(waittime / len(applist)))
+                await asyncio.sleep(waittime / len(applist))
             except UserPrivacyRestricted:
                 print("user have privacy enabled")
-                print('sleep: ' + str(120 / len(applist)))
-                await asyncio.sleep(120 / len(applist))
+                print('sleep: ' + str(waittime / len(applist)))
+                await asyncio.sleep(waittime / len(applist))
                 counter +=1
                 privacy += 1
                 updatecount(counter)
@@ -358,8 +362,8 @@ async def add_mem(user_id, config, active, method):
                 print(phone, "Rpc error")
                 print(e)
                 print,(user_id)
-                print('sleep: ' + str(120 / len(applist)))
-                await asyncio.sleep(120 / len(applist))
+                print('sleep: ' + str(waittime / len(applist)))
+                await asyncio.sleep(waittime / len(applist))
                 counter +=1
                 updatecount(counter)
             except OSError:
@@ -368,8 +372,8 @@ async def add_mem(user_id, config, active, method):
                 print(phone, "error info below")
                 print(e)
                 print,(user_id)
-                print('sleep: ' + str(120 / len(applist)))
-                await asyncio.sleep(120 / len(applist))
+                print('sleep: ' + str(waittime / len(applist)))
+                await asyncio.sleep(waittime / len(applist))
                 counter +=1
                 updatecount(counter)
             if osr == 30:
@@ -407,3 +411,4 @@ async def add_mem(user_id, config, active, method):
 
     else:
         printfinal()
+
