@@ -18,7 +18,7 @@ This project is most optimised Telegram member adder.
 
 ## Authors
 
-- [@nimma](https://www.github.com/nimma0001)
+- [@nimmadev](https://www.github.com/nimmadev)
 - [@R5pro](http://t.me/R5pro)
 
 
@@ -90,7 +90,7 @@ RUN python3 add_member.py or python add_member.py
 
 For donation version files, [@R5pro](http://t.me/R5pro) on Telegram
 
-Or help and support [@pyrogram-add-member](https://t.me/pyrogram_add_member)
+Or help and support [@pyrogram-add-member](https://t.me/nimmadev)
 
 
 ## FAQ
