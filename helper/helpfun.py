@@ -38,8 +38,8 @@ async def login(phone, api_id, api_hash, auto_join, group_target_id, group_sourc
             print(phone, 'login failed')
 
 
-def filterus(p1,p2,p4):
-        p3 = Path("data/user.json")
+def filterus(p1,p2,p4, root_path):
+        p3 = root_path / "data" / "user.json"
         if os.path.isfile(p1):
             print('starting filter user')
             try: 
