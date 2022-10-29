@@ -7,9 +7,13 @@ from helper.helpfun import add_mem
 option = input('choose method username or id: ').lower() 
 async def main():
         #loads member
-        user_id = (json.load(open("data/user.json")))
+        try:
+            user_id = (json.load(open("data/user.json", encoding="utf-8")))
+        except:
+            user_id = (json.load(open("data/source_user.json", encoding="utf-8")))
+
         #loads users and channel info
-        config = (json.load(open("config.json")))
+        config = (json.load(open("config.json", encoding="utf-8")))
         
         
           
