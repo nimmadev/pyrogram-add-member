@@ -4,7 +4,7 @@ from pyrogram import Client, enums
 from pyrogram.errors import YouBlockedUser, RPCError, FloodWait, ChatAdminRequired, PeerFlood, PeerIdInvalid, UserIdInvalid, UserPrivacyRestricted, UserRestricted, ChannelPrivate, UserNotMutualContact, PhoneNumberBanned, UserChannelsTooMuch, UserKicked
 from pathlib import Path
 from datetime import datetime, timedelta
-
+import logging
 
 ''' 
 login funtion on line 8-21
@@ -196,13 +196,7 @@ async def add_mem(user_id, config, active, method):
         waittime = 120
     privacy = uc = um = bot = noname = osr = 0
     def printfinal():
-        print("")
-        print(added, " : members were added")
-        print(skipped, " : members were skipped")
-        print(privacy, " : members had privacy enable or not in mutual contact")
-        print(uc, " : user banned in chat")
-        print(um, " : members not in mutual contact")
-        print("%s :  bot accont skipped" % bot)
+        print(f"\n{added} : members were added\n {skipped} : members were skipped\n {privacy} : members had privacy enable or not in mutual contact\n {uc} : user banned in chat\n {um} : members not in mutual contat\n {bot}:  bot accont skipped")
         if method == 'username':
             print("%s : accont has no usernames" % noname)
         updatecount(counter)
