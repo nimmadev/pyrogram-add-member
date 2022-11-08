@@ -5,13 +5,47 @@ from pyrogram.errors import YouBlockedUser, RPCError, FloodWait, ChatAdminRequir
 from pathlib import Path
 from datetime import datetime, timedelta
 import logging
-
+# function used to update counter.txt
 def updatecount(count):
     with open('current_count.txt', 'w') as g:
         g.write(str(count))
         g.close()
 
+# function used to login all account in addmember
+async def addlogin(config):
+    applist = []
+    for account in config:
+        app = Client(phone,api_id=account["api_id"], api_hash=account["api_hash"], workdir="session")
+        await app.start()
+        check = await app.get_me() 
+        try:   
+            spam = config["spam_check"]
+        except:
+            spam = False
+        if spam:
+            print('\n',account["phone"], 'login sucess')
+        # applist.append({'phone': phone, 'app': app})
+            try:
+                messegespam = await app.send_message('@spambot', '/start')
+                messget = await  app.get_messages('@spambot', message_ids=(int(messegespam.id) + 1)).text
+                listofnum =["1","2","3","4","5","6","7","8","9","0"]
+                checktext = [x for x in listofnum if(x in messget)] 
+                if checktext:
+                    print(account["phone"], 'is limited or disabled! will no be used for this RUN')
+                else:
+                    applist.append({'phone': account["phone"], 'app': app})
+            except (BaseException, YouBlockedUser):
+                print('could not perform spam test on this', account["phone"])
+                applist.append({'phone': account["phone"], 'app': app})
+        elif check:
+            applist.append({'phone': account["phone"], 'app': app})
+    
+        else:
+            print('\n', account["phone"], "login failed")
+            await asyncio.sleep(1)
+    return applist
 
+#main function whih add member
 async def add_mem(user_id, config, active, method):
     #check if need continue
     try:
@@ -21,58 +55,31 @@ async def add_mem(user_id, config, active, method):
             counter = 0
 
     chat_idt = int(str(-100) +str(config['group_target']))
-    added = 0
-    skipped = 0
+
+    # all zero value avar initali
+    added, skipped = privacy = uc = um = bot = noname = osr = 0
     try:
         waittime = config["wait_time"]
     except:
         waittime = 120
 
-    privacy = uc = um = bot = noname = osr = 0
+    # single function for sleep and time print
     async def prints():
         updatecount(counter)
         print('sleep: ' + str(waittime / len(applist)))
         await asyncio.sleep(waittime / len(applist))
+
+    #single line f string for printinf final output
     def printfinal():
         print(f"{added} : members were added\n {skipped} : members were skipped\n {privacy} : members had privacy enable or not in mutual contact\n {uc} : user banned in chat\n {um} : members not in mutual contat\n {bot}:  bot accont skipped")
         if method == 'username':
             print("%s : accont has no usernames" % noname)
         updatecount(counter)
         print(datetime.now().strftime("%H:%M:%S"))
+    
     print('total account trying to login',len(config['accounts']))
     await asyncio.sleep(0.4)
-    applist = []
-    async def addlogin():
-        for account in config['accounts']:
-            app = Client(phone,api_id=account["api_id"], api_hash=account["api_hash"], workdir="session")
-            await app.start()
-            check = await app.get_me() 
-            try:   
-                spam = config["spam_check"]
-            except:
-                spam = False
-            if spam:
-                print('\n',account["phone"], 'login sucess')
-            # applist.append({'phone': phone, 'app': app})
-                try:
-                    messegespam = await app.send_message('@spambot', '/start')
-                    messget = await  app.get_messages('@spambot', message_ids=(int(messegespam.id) + 1)).text
-                    listofnum =["1","2","3","4","5","6","7","8","9","0"]
-                    checktext = [x for x in listofnum if(x in messget)] 
-                    if checktext:
-                        print(account["phone"], 'is limited or disabled! will no be used for this RUN')
-                    else:
-                        applist.append({'phone': account["phone"], 'app': app})
-                except (BaseException, YouBlockedUser):
-                    print('could not perform spam test on this', account["phone"])
-                    applist.append({'phone': account["phone"], 'app': app})
-            elif check:
-                applist.append({'phone': account["phone"], 'app': app})
-        
-            else:
-                print('\n', account["phone"], "login failed")
-                await asyncio.sleep(1)
-    await addlogin()
+    applist = await addlogin(config['accounts'])
     print("total logind account ", len(applist))
     await asyncio.sleep(1)
     if method == 'username':
