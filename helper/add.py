@@ -57,7 +57,7 @@ async def add_mem(user_id, config, active, method):
     chat_idt = int(str(-100) +str(config['group_target']))
 
     # all zero value avar initali
-    added, skipped = privacy = uc = um = bot = noname = osr = 0
+    added = skipped = privacy = uc = um = bot = noname = osr = 0
     try:
         waittime = config["wait_time"]
     except:
