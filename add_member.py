@@ -2,7 +2,7 @@
 import asyncio
 import json
 from itertools import dropwhile
-from helper.helpfun import add_mem
+from helper.addfun import add_mem
 #option for choose username or id
 option = input('choose method username or id: ').lower() 
 async def main():
