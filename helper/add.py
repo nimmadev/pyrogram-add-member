@@ -15,6 +15,7 @@ def updatecount(count):
 async def addlogin(config):
     applist = []
     for account in config:
+        phone = account["phone"]
         app = Client(phone,api_id=account["api_id"], api_hash=account["api_hash"], workdir="session")
         await app.start()
         check = await app.get_me() 
