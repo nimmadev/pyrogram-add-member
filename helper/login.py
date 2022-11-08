@@ -1,4 +1,10 @@
-
+import asyncio
+import json, os
+from pyrogram import Client, enums 
+from pyrogram.errors import YouBlockedUser, RPCError, FloodWait, ChatAdminRequired, PeerFlood, PeerIdInvalid, UserIdInvalid, UserPrivacyRestricted, UserRestricted, ChannelPrivate, UserNotMutualContact, PhoneNumberBanned, UserChannelsTooMuch, UserKicked
+from pathlib import Path
+from datetime import datetime, timedelta
+import logging
 async def login(phone, api_id, api_hash, auto_join, group_target_id, group_source_id):
     async with Client(phone, api_id, api_hash, workdir='session')as app:
         if await app.get_me():
@@ -7,11 +13,11 @@ async def login(phone, api_id, api_hash, auto_join, group_target_id, group_sourc
                 try:
                     await app.join_chat(group_source_id)
                 except BaseException as e:
-                     print(phone,' number is already in group or join manually for group source' )
+                     print("could not join maybe already in source group")
                 try:
                     await app.join_chat(group_target_id)
                 except BaseException as e:
-                    print(phone,' number is already in group or join manually for group target')
+                    print("could not join maybe already in target group")
             else:
                 print('auto join is off check config')
         else:
