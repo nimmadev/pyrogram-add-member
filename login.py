@@ -1,6 +1,6 @@
 import asyncio
 import json
-from helper.helpfun import login
+from helper.login import login
 #load config for accounts
 config=json.load(open('config.json'))
 group_source_id=str(config['group_source_username'])
