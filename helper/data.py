@@ -60,7 +60,7 @@ async def get_data(gp_s_id, gp_t_id, config, stop):
                 except BaseException:
                     print('error')
 
-        if "username" == stop:
+        if "u" == stop[0]:
             break
     phonedata = config["accounts"][0]
     phone = phonedata["phone"]
