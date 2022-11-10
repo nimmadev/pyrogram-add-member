@@ -12,7 +12,26 @@ def updatecount(count):
         g.close()
 
 # function used to login all account in addmember
+
+
 async def addlogin(config):
+    # create logger
+    logger = logging.getLogger('PAM')
+    logger.setLevel(logging.INFO)
+    
+    # create console handler and set level to debug
+    ch = logging.StreamHandler()
+    ch.setLevel(logging.INFO)
+    
+    # create formatter
+    formatter = logging.Formatter('%(name)s - %(levelname)s - %(message)s')
+    
+    # add formatter to ch
+    ch.setFormatter(formatter)
+    
+    # add ch to logger
+    logger.addHandler(ch)
+    #login starthere
     applist = []
     for account in config:
         phone = account["phone"]
@@ -23,26 +42,27 @@ async def addlogin(config):
             spam = config["spam_check"]
         except:
             spam = False
-        if spam:
-            print('\n',account["phone"], 'login sucess')
-        # applist.append({'phone': phone, 'app': app})
-            try:
-                messegespam = await app.send_message('@spambot', '/start')
-                messget = await  app.get_messages('@spambot', message_ids=(int(messegespam.id) + 1)).text
-                listofnum =["1","2","3","4","5","6","7","8","9","0"]
-                checktext = [x for x in listofnum if(x in messget)] 
-                if checktext:
-                    print(account["phone"], 'is limited or disabled! will no be used for this RUN')
-                else:
+        if check:
+            logger.info(f'{phone} login sucess')
+            # print('\n',account["phone"], 'login sucess')
+            # applist.append({'phone': phone, 'app': app})
+            if spam:
+                try:
+                    messegespam = await app.send_message('@spambot', '/start')
+                    messget = await  app.get_messages('@spambot', message_ids=(int(messegespam.id) + 1)).text
+                    listofnum =["1","2","3","4","5","6","7","8","9","0"]
+                    checktext = [x for x in listofnum if(x in messget)] 
+                    if checktext:
+                        logger.info(f'{phone} is limited or disabled! will no be used for this RUN')
+                    else:
+                        applist.append({'phone': account["phone"], 'app': app})
+                except (BaseException, YouBlockedUser):
+                    logger.info(f'could not perform spam test on this {phone}')
                     applist.append({'phone': account["phone"], 'app': app})
-            except (BaseException, YouBlockedUser):
-                print('could not perform spam test on this', account["phone"])
+            else:
                 applist.append({'phone': account["phone"], 'app': app})
-        elif check:
-            applist.append({'phone': account["phone"], 'app': app})
-    
         else:
-            print('\n', account["phone"], "login failed")
+            logger.info(f'{phone} login failed')
             await asyncio.sleep(1)
     return applist
 
@@ -64,7 +84,7 @@ async def add_mem(user_id, config, active, method):
     except:
         waittime = 120
 
-    # single function for sleep and time print
+    # single function for sleep and time logger.info
     async def prints():
         updatecount(counter)
         print('sleep: ' + str(waittime / len(applist)))
@@ -83,7 +103,7 @@ async def add_mem(user_id, config, active, method):
     applist = await addlogin(config['accounts'])
     print("total logind account ", len(applist))
     await asyncio.sleep(1)
-    if method == 'username':
+    if method[0] == 'u':
         usermethod = "username"
     else:
         usermethod = "userid"
