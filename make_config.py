@@ -33,12 +33,12 @@ group_target_user = re.sub(
     "",
      group_target_username)
 
-choice = input(f"\n\nDo you have your own api and hash. \nif  you want to use default one from telegram\ntype yes to use default and Type No to add api and hash manully: ").lower()
+choice = input(f"\n\nType YES to add api and hash manully\nType NO to use default one from telegram :> ").lower()
 
 
 def main():
     # for _ in range(n):
-    if choice[0] == "y":
+    if choice[0] == "n":
         with open('phone.csv', 'r') as f:
             str_list = [row[0] for row in csv.reader(f)]
             po = 0
@@ -94,7 +94,7 @@ def main():
                     count -= 1
         with open(config_path, 'w', encoding='utf-8') as file:
             json.dump(config, file, indent=4)
-    else:
+    elif  choice[0] == "y":
          count = int(input("how many numbers you want to add: "))
          if config_path.exists():
              with open(config_path, 'r', encoding='utf-8') as file:
@@ -127,5 +127,7 @@ def main():
               count -= 1
          with open(config_path, 'w', encoding='utf-8') as file:
             json.dump(config, file, indent=4)
+    else:
+        print("wrong option use YES / NO")
 
 main()

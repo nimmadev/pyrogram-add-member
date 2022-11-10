@@ -41,10 +41,26 @@ Now We Will Add Account Which Will be Used For Adding
 ```
 RUN python3 make_config.py or python make_config.py
 ```
-- first add ur phone numbers in phone.csv
-- group id it look like this 8272873688
-- Group username like @r5pro
--  AutoJoin and SpamCheck accepts [True/false] editable in  config.py after you run make_conf 
+- first  id of group you want to scrap
+- second id of ur group
+- source username is the link or username of group you want to scrap
+- target username is the link or username of your group
+- if you have api_id and hash for ur numbers type YES otherwise 
+
+# For NO
+if you did not add number in phone.csv you will be asked for 
+how many numbers you want to add
+- first add ur phone numbers in phone.csv (optional)
+- type the number one by one with country code example 918571000000 [91 is my country code] (only required if you did not fill phone.csv)
+# For YES
+-  enter number of account you want to add example: 10 or 5
+-  enter ur number with country code example 918571000000 [91 is my country code]
+-  enter ur api id. get from https://my.telegram.org/auth
+-  enetr ur api hash. get from https://my.telegram.org/auth
+
+
+### AutoJoin and SpamCheck accepts [True/false] editable in  config.py after you run make_confg.py
+
 ```
 RUN python3 login.py or python login.py 
 ```
