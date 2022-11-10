@@ -20,9 +20,9 @@ config_path = Path("config.json")
 group_source = input("group_source_id: ")
 group_target= input("group_target_id :")
 group_source_username= input("group_source_username: ")
-group_source_user= re.sub("(@)|(https://)|(http://)", "", group_source_username)
+group_source_user= re.sub("(@)|(https://t.me/)|(http://t.me/)", "", group_source_username)
 group_target_username= input("group_target_username: ")
-group_target_user =re.sub("(@)|(https://)|(http://)", "", group_target_username)
+group_target_user =re.sub("(@)|(https://t.me/)|(http://t.me/)", "", group_target_username)
 
 def main():
     #for _ in range(n):
