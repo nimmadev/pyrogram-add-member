@@ -14,7 +14,6 @@ async def login(phone, api_id, api_hash, auto_join, group_source_id,  group_targ
                     await app.join_chat(group_source_id)
                 except BaseException as e:
                      print("could not join maybe already in source group")
-                     print(f"real error : {e}")
 
                 try:
                     await app.join_chat(group_target_id)
