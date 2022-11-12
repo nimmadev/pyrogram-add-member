@@ -12,5 +12,5 @@ async def loginall():
         api_id = int(account['api_id'])
         api_hash = account['api_hash']
         print(phone)
-        await login(phone, api_id, api_hash, auto_join, group_source_id,  group_target_id
+        await login(phone, api_id, api_hash, auto_join, group_source_id,  group_target_id)
 asyncio.run(loginall())
