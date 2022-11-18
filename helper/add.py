@@ -1,15 +1,16 @@
 import asyncio
 import json, os
+import ast
 from pyrogram import Client, enums 
-from pyrogram.errors import YouBlockedUser, RPCError, FloodWait, ChatAdminRequired, PeerFlood, PeerIdInvalid, UserIdInvalid, UserPrivacyRestricted, UserRestricted, ChannelPrivate, UserNotMutualContact, PhoneNumberBanned, UserChannelsTooMuch, UserKicked
+from pyrogram.errors import YouBlockedUser, RPCError, FloodWait, ChatAdminRequired, PeerFlood, PeerIdInvalid, UserIdInvalid, UserPrivacyRestricted, UserRestricted, ChannelPrivate, UserNotMutualContact, PhoneNumberBanned, UserChannelsTooMuch, UserKicked, UserDeactivatedBan, UsernameNotOccupied
 from pathlib import Path
 from helper.applist import addlogin
 from datetime import datetime, timedelta
 import logging
 # function used to update counter.txt
 def updatecount(count):
-    with open('current_count.txt', 'w') as g:
-        g.write(str(count))
+    with open('current_count.py', 'w') as g:
+        g.write(count)
         g.close()
 
 
@@ -17,9 +18,12 @@ def updatecount(count):
 async def add_mem(user_id, config, active, method):
     #check if need continue
     try:
-        with open('current_count.txt') as f:
-            counter = int(f.read())             
+        with open('current_count.py') as f:
+            data = f.read()       
+            counterall = ast.literal_eval(data)    
+            counter = counterall["counter"]
     except:
+            
             counter = 0
 
     chat_idt = int(str(-100) +str(config['group_target']))
@@ -33,7 +37,7 @@ async def add_mem(user_id, config, active, method):
 
     # single function for sleep and time logger.info
     async def prints():
-        updatecount(counter)
+        updatecount(counterall)
         print('sleep: ' + str(waittime / len(applist)))
         await asyncio.sleep(waittime / len(applist))
 
@@ -42,7 +46,7 @@ async def add_mem(user_id, config, active, method):
         print(f"{added} : members were added\n {skipped} : members were skipped\n {privacy} : members had privacy enable or not in mutual contact\n {uc} : user banned in chat\n {um} : members not in mutual contat\n {bot}:  bot accont skipped")
         if method == 'username':
             print("%s : accont has no usernames" % noname)
-        updatecount(counter)
+        updatecount(counterall)
         print(datetime.now().strftime("%H:%M:%S"))
     
     print('total account trying to login',len(config['accounts']))
@@ -55,7 +59,9 @@ async def add_mem(user_id, config, active, method):
     else:
         usermethod = "userid"
     print(len(user_id), counter)
-    while (len(user_id) - counter) > 1:
+    leftmem = len(user_id) - counter
+    counterall = {'counter': int(counter), 'left_to_add': int(leftmem)}
+    while leftmem > 1:
         for account in applist:
             if (len(user_id) - counter) == 0:
                 printfinal()
@@ -70,13 +76,13 @@ async def add_mem(user_id, config, active, method):
                 if user_id[counter]["bot"]:
                     counter += 1
                     bot += 1
-                    updatecount(counter)
+                    updatecount(counterall)
                 elif user_id[counter][usermethod] == 'None':
                     counter += 1
                     noname += 1
-                    updatecount(counter)
+                    updatecount(counterall)
                 elif user_active in active:
-                    print("trying to add", user_id[counter]["userid"], 'by account', applist.index(account), '/', len(applist))
+                    print("trying to add", user_id[counter]["userid"], 'by phone number', phone)
                     await app.add_chat_members(chat_id=chat_idt, user_ids=user_id[counter][usermethod])
                     print(user_id[counter]["userid"], "added success")
                     counter += 1
@@ -85,7 +91,15 @@ async def add_mem(user_id, config, active, method):
                 else:
                     counter += 1
                     skipped += 1
-                    updatecount(counter)
+                    updatecount(counterall)
+            except UsernameNotOccupied:
+                print("user not using username anymore")
+                counter +=1
+                await prints()
+            except UserDeactivatedBan:
+                print("user removed from telegram")
+                counter +=1
+                await prints()
             except UserKicked:
                 print('this user is banned')
                 counter +=1
