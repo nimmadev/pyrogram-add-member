@@ -10,7 +10,7 @@ import logging
 # function used to update counter.txt
 def updatecount(count):
     with open('current_count.py', 'w') as g:
-        g.write(count)
+        g.write(str(count))
         g.close()
 
 
