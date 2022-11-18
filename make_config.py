@@ -60,8 +60,8 @@ def main():
                     print(f"{phone} added to config run python login.py to login")
                     new_account = {
                         "phone": phone,
-                        "api_id": 6,
-                        "api_hash": "eb06d4abfb49dc3eeb1aeb98ae0f581e"
+                        "api_id": 2040,
+                        "api_hash": "b18441a1ff607e10a989891a5462e627"
                     }
                     config["accounts"].append(new_account)
             else:
