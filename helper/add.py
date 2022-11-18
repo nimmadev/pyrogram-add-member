@@ -59,8 +59,9 @@ async def add_mem(user_id, config, active, method):
     else:
         usermethod = "userid"
     print(len(user_id), counter)
-    leftmem = len(user_id) - counter
+    
     while leftmem > 1:
+        leftmem = len(user_id) - counter
         counterall = {'counter': int(counter), 'left_to_add': int(leftmem)}
         for account in applist:
             if (len(user_id) - counter) == 0:
