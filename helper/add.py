@@ -207,4 +207,5 @@ async def add_mem(user_id, config, active, method):
 
     else:
         printfinal()
+        exit()
 
