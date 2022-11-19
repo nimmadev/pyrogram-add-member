@@ -66,10 +66,10 @@ async def add_mem(user_id, config, active, method):
         for account in applist:
             if (len(user_id) - counter) == 0:
                 printfinal()
-                break
+                exit()
             if len(applist) == 0:
                 printfinal()
-                break
+                exit()
             phone = account['phone']
             app = account['app']
             user_active = user_id[counter]["status"]
