@@ -23,13 +23,19 @@ config_path = Path("config.json")
 group_source = input("group_source_id: ")
 group_target = input("group_target_id :")
 group_source_username = input("group_source_username: ")
-group_source_user = re.sub(
-    "(@)|(https://)|(http://)",
+if '+' not in group_source_username:
+    pass
+else:
+    group_source_user = re.sub(
+    "(@)|(https://)|(http://)|(https://t.me/)|(http://t.me/)",
     "",
      group_source_username)
 group_target_username = input("group_target_username: ")
-group_target_user = re.sub(
-    "(@)|(https://)|(http://)",
+if '+' not in group_target_username:
+    pass
+else:
+    group_target_user = re.sub(
+    "(@)|(https://)|(http://)|(https://t.me/)|(http://t.me/)|",
     "",
      group_target_username)
 
@@ -60,8 +66,8 @@ def main():
                     print(f"{phone} added to config run python login.py to login")
                     new_account = {
                         "phone": phone,
-                        "api_id": 6,
-                        "api_hash": "eb06d4abfb49dc3eeb1aeb98ae0f581e"
+                        "api_id": 2040,
+                        "api_hash": "b18441a1ff607e10a989891a5462e627"
                     }
                     config["accounts"].append(new_account)
             else:

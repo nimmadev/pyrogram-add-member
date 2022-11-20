@@ -11,8 +11,8 @@ import logging
 
 async def get_data(gp_s_id, gp_t_id, config, stop):
     try:
-        count = 0
-        with open('current_count.txt', 'w') as g:
+        count = {}
+        with open('current_count.py', 'w') as g:
             g.write(str(count))
             g.close()
     except BaseException:
