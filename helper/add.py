@@ -64,12 +64,34 @@ async def add_mem(user_id, config, active, method):
         leftmem = len(user_id) - counter
         counterall = {'counter': int(counter), 'left_to_add': int(leftmem)}
         for account in applist:
-            if (len(user_id) - counter) == 0:
+            try:
+                if added == (30 * len(applist)):
+                    printfinal()
+                    print()
+                    print("Sleeping for two hours")
+                    print()
+                    now = datetime.now()
+                    end = datetime.now() + timedelta(hours=2)
+                    print("Sleep started at : ", now.strftime("%H:%M:%S"))
+                    print("Sleep End at : ", end.strftime("%H:%M:%S"))
+                    added = 0
+                    await asyncio.sleep(3500)
+                    print("1 hour left to continue")
+                    await asyncio.sleep(3500)
+                    
+            except ZeroDivisionError:
                 printfinal()
-                exit()
-            if len(applist) == 0:
-                printfinal()
-                exit()
+                print()
+                print("Sleeping for two hours")
+                print()
+                now = datetime.now()
+                end = datetime.now() + timedelta(hours=2)
+                print("Sleep started at : ", now.strftime("%H:%M:%S"))
+                print("Sleep End at : ", end.strftime("%H:%M:%S"))
+                added = 0
+                await asyncio.sleep(3500)
+                print("1 hour left to continue")
+                await asyncio.sleep(3500)
             phone = account['phone']
             app = account['app']
             user_active = user_id[counter]["status"]
@@ -174,36 +196,8 @@ async def add_mem(user_id, config, active, method):
                 await prints()
             if osr == 30:
                 printfinal()
-        
                 await asyncio.sleep(700)
-            try:
-                if added == (30 * len(applist)):
-                    printfinal()
-                    print()
-                    print("Sleeping for two hours")
-                    print()
-                    now = datetime.now()
-                    end = datetime.now() + timedelta(hours=2)
-                    print("Sleep started at : ", now.strftime("%H:%M:%S"))
-                    print("Sleep End at : ", end.strftime("%H:%M:%S"))
-                    added = 0
-                    await asyncio.sleep(3500)
-                    print("1 hour left to continue")
-                    await asyncio.sleep(3500)
-                    
-            except ZeroDivisionError:
-                printfinal()
-                print()
-                print("Sleeping for two hours")
-                print()
-                now = datetime.now()
-                end = datetime.now() + timedelta(hours=2)
-                print("Sleep started at : ", now.strftime("%H:%M:%S"))
-                print("Sleep End at : ", end.strftime("%H:%M:%S"))
-                added = 0
-                await asyncio.sleep(3500)
-                print("1 hour left to continue")
-                await asyncio.sleep(3500)
+      
 
     else:
         printfinal()
