@@ -95,16 +95,17 @@ async def add_mem(user_id, config, active, method):
             phone = account['phone']
             app = account['app']
             user_active = user_id[counter]["status"]
-            while user_id[counter]["bot"]:
-                counter += 1
-                bot += 1
-                updatecount(counterall)
-            while user_id[counter][usermethod] == 'None':
-                counter += 1
-                noname += 1
-                updatecount(counterall)
             try:
-                if user_active in active:
+                if user_id[counter]["bot"]:
+                    counter += 1
+                    bot += 1
+                    updatecount(counterall)
+                elif user_id[counter][usermethod] == 'None':
+                    counter += 1
+                    noname += 1
+                    updatecount(counterall)
+            
+                elif user_active in active:
                     print("trying to add", user_id[counter]["userid"], 'by phone number', phone, 'account-postiton : ', int(applist.index(account)) + 1, '/', len(applist))
                     await app.add_chat_members(chat_id=chat_idt, user_ids=user_id[counter][usermethod])
                     print(user_id[counter]["userid"], "added success")
