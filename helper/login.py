@@ -21,6 +21,6 @@ async def login(phone, api_id, api_hash, auto_join, group_source_id,  group_targ
                     print("could not join maybe already in target group")
             else:
                 print('auto join is off check config')
-            await asyncio.sleep(.5)
+            await asyncio.sleep(.1)
         else:
             print(phone, 'login failed')
