@@ -105,7 +105,7 @@ async def add_mem(user_id, config, active, method):
                     noname += 1
                     updatecount(counterall)
                 elif user_active in active:
-                    print("trying to add", user_id[counter]["userid"], 'by phone number', phone)
+                    print("trying to add", user_id[counter]["userid"], 'by phone number', phone, 'account-postiton : ', int(applist.index(account)) + 1, '/', len(applist))
                     await app.add_chat_members(chat_id=chat_idt, user_ids=user_id[counter][usermethod])
                     print(user_id[counter]["userid"], "added success")
                     counter += 1
