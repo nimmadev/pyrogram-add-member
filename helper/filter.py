@@ -5,9 +5,9 @@ def filterus(p1,p2,p4, root_path):
         if os.path.isfile(p1):
             print('starting filter user')
             try: 
-                with open(p1) as f:
+                with open(p1, encoding='utf-8') as f:
                     json11 = json.loads(f.read())
-                with open(p2) as b:
+                with open(p2, encoding='utf-8') as b:
                     json22 = json.loads(b.read())
 
                 garbage_id = {d['userid'] for d in json22}
