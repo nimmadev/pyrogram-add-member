@@ -1,4 +1,4 @@
-Bimport json
+import json
 import csv
 from csv import reader
 from pathlib import Path
