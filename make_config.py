@@ -1,4 +1,4 @@
-import json
+Bimport json
 import csv
 from csv import reader
 from pathlib import Path
@@ -23,19 +23,19 @@ config_path = Path("config.json")
 group_source = input("group_source_id: ")
 group_target = input("group_target_id :")
 group_source_username = input("group_source_username: ")
-if '+' not in group_source_username:
+if '+' in group_source_username:
     pass
 else:
     group_source_user = re.sub(
-    "(@)|(https://)|(http://)|(https://t.me/)|(http://t.me/)",
+    "(@)|(https://t.me/)|(http://t.me/)",
     "",
      group_source_username)
 group_target_username = input("group_target_username: ")
-if '+' not in group_target_username:
+if '+' in group_target_username:
     pass
 else:
     group_target_user = re.sub(
-    "(@)|(https://)|(http://)|(https://t.me/)|(http://t.me/)|",
+    "(@)|(https://t.me/)|(http://t.me/)",
     "",
      group_target_username)
 
