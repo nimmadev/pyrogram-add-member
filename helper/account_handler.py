@@ -70,7 +70,7 @@ async def add_member(user_id, config, active, method):
         print(datetime.now().strftime("%H:%M:%S"))
     total_account = len(config['accounts'])
     PAM.info(f'total account trying to login {total_account}')
-    await ayncio.sleep(.2)
+    await asyncio.sleep(.2)
     applist = await addlogin(config['accounts'])
     logined_account = len(applist)
     PAM.info(f"total logind account {logined_account}")
