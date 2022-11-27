@@ -9,6 +9,7 @@ from helper.pam_log import pamlog
 async def login(phone, api_id, api_hash, auto_join, group_source_id,  group_target_id):
     # create logger
     PAM = pamlog('PAM-Login-Signup')
+    PAM.propagate = False
     async with Client(phone, api_id, api_hash, workdir='session')as app:
         if await app.get_me():
             PAM.info(f'{phone} is logined')
