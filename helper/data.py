@@ -12,6 +12,7 @@ from helper.pam_log import pamlog
 async def get_data(gp_s_id, gp_t_id, config, stop):
     # create logger
     PAM = pamlog('PAM-GET-DATA')
+    PAM.propagate = False
     try:
         count = {}
         with open('current_count.py', 'w') as g:
