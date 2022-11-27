@@ -1,6 +1,6 @@
 import asyncio
 import json, os
-from pyrogram import Client, enums
+from pyrogram.client import Client, enums
 from helper.filter import filterus
 from helper.data import get_data
 from pathlib import Path
@@ -17,5 +17,5 @@ async def main():
      await get_data(gp_s_id, gp_t_id, config, method)
      filterus(path_group,path_group2, path_group4, root)
      
-asyncio.run(main(), debug=False)
+asyncio.run(main())
 
