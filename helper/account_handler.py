@@ -122,7 +122,6 @@ async def add_member(user_id, config, active, method):
                     bot += 1
                     updatecount(counterall)
                     PAM.info("bot removed")
-                    await asyncio.sleep(.3)
                 elif user_id[counter][usermethod] == 'None':
                     counter += 1
                     noname += 1
