@@ -59,7 +59,7 @@ async def add_member(user_id, config, active, method):
     async def prints():
         updatecount(counterall)
         wait_time = str(waittime / len(applist))
-        PAM.info(f'sleep: {waittime}')
+        PAM.info(f'sleep: {wait_time}')
         await asyncio.sleep(waittime / len(applist))
     #single line f string for printinf final output
     def printfinal():
@@ -70,7 +70,7 @@ async def add_member(user_id, config, active, method):
         print(datetime.now().strftime("%H:%M:%S"))
     total_account = len(config['accounts'])
     PAM.info(f'total account trying to login {total_account}')
-    await asyncio.sleep(0.4)
+    await ayncio.sleep(.2)
     applist = await addlogin(config['accounts'])
     logined_account = len(applist)
     PAM.info(f"total logind account {logined_account}")
