@@ -25,6 +25,7 @@ async def add_member(user_id, config, active, method):
     # stop in middle 
     def handler(signum, frame):
         msg = " Ctrl-c OR Ctrl-z was pressed. Do you really want to exit? y/n "
+        print(msg)
         res = readchar.readchar()
         if res == 'y':
             updatecount(counterall)
