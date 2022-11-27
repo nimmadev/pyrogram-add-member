@@ -1,12 +1,7 @@
 import asyncio
 import json
-import os
 import gc
-from pyrogram import Client, enums
-from pyrogram.errors import YouBlockedUser, RPCError, FloodWait, ChatAdminRequired, PeerFlood, PeerIdInvalid, UserIdInvalid, UserPrivacyRestricted, UserRestricted, ChannelPrivate, UserNotMutualContact, PhoneNumberBanned, UserChannelsTooMuch, UserKicked
-from pathlib import Path
-from datetime import datetime, timedelta
-import logging
+from pyrogram.client import Client, enums
 from helper.pam_log import pamlog
 
 async def get_data(gp_s_id, gp_t_id, config, stop):
@@ -58,6 +53,7 @@ async def get_data(gp_s_id, gp_t_id, config, stop):
                     gc.enable()
                 except BaseException:
                     PAM.info('error')
+            # await app.stop(block=True)
 
         if "u" == stop[0]:
             break
