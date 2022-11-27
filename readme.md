@@ -32,7 +32,7 @@ This project is most optimised Telegram member adder.
 Get Api_Id and Api_Hash From my.telegram.org
 ```
 ```bash
-  git clone https://github.com/nimma0001/pyrogram-add-member
+  git clone https://github.com/nimmadev/pyrogram-add-member
 ```
 ```
  RUN pip3 install -r requirements.txt or pip -r install requirments.txt 
