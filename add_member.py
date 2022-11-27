@@ -2,7 +2,7 @@
 import asyncio
 import json
 from itertools import dropwhile
-from helper.add import add_mem, updatecount, addlogin
+from helper.account_handler import add_member, updatecount, addlogin
 #option for choose username or id
 option = input('choose method username or id: ').lower() 
 async def main():
@@ -25,6 +25,6 @@ async def main():
         active = []
         for x in dropwhile(lambda y: y != last_active, activelist):
            active.append(x)
-        await add_mem(user_id, config, active, option)
+        await add_member(user_id, config, active, option)
 
 asyncio.run(main())

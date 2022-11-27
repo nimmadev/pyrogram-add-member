@@ -7,9 +7,11 @@ from pyrogram.errors import YouBlockedUser, RPCError, FloodWait, ChatAdminRequir
 from pathlib import Path
 from datetime import datetime, timedelta
 import logging
-
+from helper.pam_log import pamlog
 
 async def get_data(gp_s_id, gp_t_id, config, stop):
+    # create logger
+    PAM = pamlog('PAM-GET-DATA')
     try:
         count = {}
         with open('current_count.py', 'w') as g:
@@ -19,26 +21,22 @@ async def get_data(gp_s_id, gp_t_id, config, stop):
         pass
     for account in config['accounts']:
         phone = account["phone"]
-        print(phone, 'getting source user data')
+        PAM.info(f'{phone} getting source user data')
         async with Client(phone, workdir="session") as app:
             if await app.get_me():
-                print(phone, "is logined")
+                PAM.info(f"{phone} is logined")
             else:
-                print(phone, "login failed")
+                PAM.info(f"{phone} login failed")
             try:
                 await app.get_chat(gp_s_id)
             except ValueError:
-                print(
-                    "%s has not joined source chat or RUN get_data.py" %
-                    phone)
+                PAM.info(f"{phone} has not joined source chat or RUN get_data.py")
                 await asyncio.sleep(1)
                 continue
             try:
                 await app.get_chat(gp_t_id)
             except ValueError:
-                print(
-                    "%s has not joined target chat or RUN get_data.py" %
-                    phone)
+                PAM.info(f"{phone}' has not joined target chat or RUN get_data.py")
                 await asyncio.sleep(1)
                 continue
             mem = []
@@ -58,7 +56,7 @@ async def get_data(gp_s_id, gp_t_id, config, stop):
                     mem.append(memb)
                     gc.enable()
                 except BaseException:
-                    print('error')
+                    PAM.info('error')
 
         if "u" == stop[0]:
             break
@@ -66,18 +64,18 @@ async def get_data(gp_s_id, gp_t_id, config, stop):
     phone = phonedata["phone"]
     async with Client(phone, workdir="session") as app:
         if await app.get_me():
-            print(phone, "is logined")
+            pass
         else:
-            print(phone, "login failed")
+            PAM.info(f"{phone} login failed")
         try:
             await app.get_chat(gp_s_id)
         except ValueError:
-            print("%s has not joined source chat or RUN get_data.py" % phone)
+            PAM.info(f"{phone} has not joined source chat or RUN get_data.py")
             await asyncio.sleep(1)
         try:
             await app.get_chat(gp_t_id)
         except ValueError:
-            print("%s has not joined target chat or RUN get_data.py" % phone)
+            PAM.info(f"{phone} has not joined target chat or RUN get_data.py")
             await asyncio.sleep(1)
         mem2 = []
         async for member in app.get_chat_members(chat_id=gp_t_id):
@@ -97,9 +95,9 @@ async def get_data(gp_s_id, gp_t_id, config, stop):
                 mem2.append(memb)
                 gc.enable()
             except BaseException:
-                print('error')
+                PAM.info('error')
 
-        print(phone, 'getting target user data')
+        PAM.info(f'{phone} getting target user data')
         mem3 = []
         async for member in app.get_chat_members(chat_id=gp_s_id, filter=enums.ChatMembersFilter.ADMINISTRATORS):
             try:
@@ -114,17 +112,19 @@ async def get_data(gp_s_id, gp_t_id, config, stop):
                 mem3.append(memb)
                 gc.enable()
             except BaseException:
-                print('error')
+                PAM.info('error')
 
-        print(phone, 'getting admin user data')
+        PAM.info(f'{phone} getting admin user data')
         with open('data/source_user.json', 'w', encoding='utf-8') as f:
             json.dump(mem, f, indent=4, ensure_ascii=False)
-            print("saving source user")
+            PAM.info("saving source user")
         with open('data/target_user.json', 'w', encoding='utf-8') as f:
             json.dump(mem2, f, indent=4, ensure_ascii=False)
-            print("saving target user")
+            PAM.info("saving target user")
         with open('data/source_admin.json', 'w', encoding='utf-8') as f:
             json.dump(mem3, f, indent=4, ensure_ascii=False)
-            print("saving admin user")
+            PAM.info("saving admin user")
+        if "u" == stop[0]:
+            exit()
 
             # refresh hash acces for all accounts

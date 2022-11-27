@@ -17,5 +17,5 @@ async def main():
      await get_data(gp_s_id, gp_t_id, config, method)
      filterus(path_group,path_group2, path_group4, root)
      
-asyncio.run(main())
+asyncio.run(main(), debug=False)
 
