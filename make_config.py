@@ -26,7 +26,7 @@ group_source_username = input("group_source_username: ")
 if '+' in group_source_username:
     pass
 else:
-    group_source_user = re.sub(
+    group_source_username = re.sub(
     "(@)|(https://t.me/)|(http://t.me/)",
     "",
      group_source_username)
@@ -34,7 +34,7 @@ group_target_username = input("group_target_username: ")
 if '+' in group_target_username:
     pass
 else:
-    group_target_user = re.sub(
+    group_target_username = re.sub(
     "(@)|(https://t.me/)|(http://t.me/)",
     "",
      group_target_username)
@@ -52,8 +52,8 @@ def main():
                 config = {
                                 "group_source": group_source,
                                 "group_target": group_target,
-                                "group_source_username": group_source_user,
-                                "group_target_username": group_target_user,
+                                "group_source_username": group_source_username,
+                                "group_target_username": group_target_username,
                                 "from_date_active": DEAFULT,
                                 "auto_join": False,  # can be True or False
                                 "spam_check": True,  # turn on off spam check
@@ -78,8 +78,8 @@ def main():
                     config = {
                                     "group_source": group_source,
                                     "group_target": group_target,
-                                    "group_source_username": group_source_user,
-                                    "group_target_username": group_target_user,
+                                    "group_source_username": group_source_username,
+                                    "group_target_username": group_target_username,
                                     "from_date_active": DEAFULT,
                                     "auto_join": False,  # can be True or False
                                     "spam_check": True,  # turn on off spam check
@@ -109,8 +109,8 @@ def main():
              config = {
                                         "group_source": group_source,
                                         "group_target": group_target,
-                                        "group_source_username": group_source_user,
-                                        "group_target_username": group_target_user,
+                                        "group_source_username": group_source_username,
+                                        "group_target_username": group_target_username,
                                         "from_date_active": DEAFULT,
                                         "auto_join": True,  # can be True or False
                                         "spam_check": True,  # turn on off spam check

@@ -42,9 +42,13 @@ async def add_member(user_id, config, active, method):
             data = f.read()       
             counterall = ast.literal_eval(data)    
             counter = counterall["counter"]
+            added2 = counterall["added"]
+            skipped2  = counterall['skipped']
+            privacy2  = counterall['privacy']
+            uc2  = counterall['already in too many channel/group']
     except:
             
-            counter = 0
+            counter = added2 = privacy2 = uc2 = skipped2 =  0
 
     chat_idt = int(str(-100) +str(config['group_target']))
 
@@ -91,10 +95,10 @@ async def add_member(user_id, config, active, method):
         leftmem = len(user_id) - counter
         counterall = {'counter': int(counter), 
                       'left_to_add': int(leftmem),
-                      'added': int(added),
-                      'skipped': int(skipped),
-                      'privacy': int(privacy),
-                      'already in too many channel/group': int(uc)}
+                      'added': int(added2) + int(added),
+                      'skipped': int(skipped2) + int(skipped),
+                      'privacy': int(privacy2) + int(privacy),
+                      'already in too many channel/group':int(uc2) + int(uc)}
         for account in applist:
             try:
                 if applist == False:
