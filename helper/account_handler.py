@@ -120,32 +120,34 @@ async def add_member(user_id, config, active, method):
                             PAM.info(str(e))
             phone = account['phone']
             app = account['app']
-            while user_id[counter]["bot"] or user_id[counter][usermethod] == 'None':     
-                if user_id[counter]["bot"]:
+        
+            while user_id[counter]["bot"] == True or user_id[counter][usermethod] == 'None' or user_id[counter]["status"] not in active:
+                if user_id[counter]["status"] not in active:   
+                    counter += 1
+                    skipped += 1
+                    updatecount(counterall)
+                    PAM.info('Inactive user skipped')
+                if user_id[counter]["bot"] == True:
                     counter += 1
                     bot += 1
                     updatecount(counterall)
-                    PAM.info("bot removed")
+                    PAM.info("bot skipped")
                 elif user_id[counter][usermethod] == 'None':
                     counter += 1
                     noname += 1
                     updatecount(counterall)
+                    PAM.info('NO USERNAME found for this user skipped')
             try:
-                user_active = user_id[counter]["status"]
-                if user_active in active:
-                    postiton = applist.index(account)
-                    current_user = user_id[counter]["userid"]
-                    postion2 = len(applist)
-                    PAM.info(f"trying to add {current_user} by : {phone} account-postiton : {postiton + 1} / {postion2}")
-                    await app.add_chat_members(chat_id=chat_idt, user_ids=user_id[counter][usermethod])
-                    PAM.info(f"{current_user} added success")
-                    counter += 1
-                    added += 1
-                    await prints()
-                else:
-                    counter += 1
-                    skipped += 1
-                    updatecount(counterall)
+                postiton = applist.index(account)
+                current_user = user_id[counter]["userid"]
+                postion2 = len(applist)
+                PAM.info(f"trying to add {current_user} by : {phone} account-postiton : {postiton + 1} / {postion2}")
+                await app.add_chat_members(chat_id=chat_idt, user_ids=user_id[counter][usermethod])
+                PAM.info(f"{current_user} added success")
+                counter += 1
+                added += 1
+                await prints()
+                   
             except UsernameNotOccupied:
                 PAM.info("user not using username anymore")
                 counter +=1

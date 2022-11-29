@@ -125,12 +125,12 @@ Check @spambot on Telegram if ur account is limited
 
 option are
 ```
- UserStatus.LONG_AGO
- UserStatus.LAST_MONTH
- UserStatus.LAST_WEEK
- UserStatus.OFFLINE
- UserStatus.RECENTLY
- UserStatus.ONLINE
+ UserStatus.LONG_AGO - User was seen long ago
+ UserStatus.LAST_MONTH - User was seen last month
+ UserStatus.LAST_WEEK - User was seen last week
+ UserStatus.OFFLINE - User is offline
+ UserStatus.RECENTLY - User was online recently
+ UserStatus.ONLINE - User is online
  ```
  6th option add user who are online and 1st add all the user
 
