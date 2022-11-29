@@ -120,7 +120,7 @@ async def add_member(user_id, config, active, method):
                             PAM.info(str(e))
             phone = account['phone']
             app = account['app']
-        
+                   
             while user_id[counter]["bot"] == True or user_id[counter][usermethod] == 'None' or user_id[counter]["status"] not in active:
                 if user_id[counter]["status"] not in active:   
                     counter += 1
