@@ -53,7 +53,7 @@ async def get_data(gp_s_id, gp_t_id, config, stop):
                     gc.enable()
                 except BaseException:
                     PAM.info('error')
-            # await app.stop(block=True)
+            await app.stop(block=True)
 
         if "u" == stop[0]:
             break
