@@ -122,21 +122,25 @@ async def add_member(user_id, config, active, method):
             app = account['app']
                    
             while user_id[counter]["bot"] == True or user_id[counter][usermethod] == 'None' or user_id[counter]["status"] not in active:
-                if user_id[counter]["status"] not in active:   
-                    counter += 1
-                    skipped += 1
-                    updatecount(counterall)
-                    PAM.info('Inactive user skipped')
-                if user_id[counter]["bot"] == True:
-                    counter += 1
-                    bot += 1
-                    updatecount(counterall)
-                    PAM.info("bot skipped")
-                elif user_id[counter][usermethod] == 'None':
-                    counter += 1
-                    noname += 1
-                    updatecount(counterall)
-                    PAM.info('NO USERNAME found for this user skipped')
+                try:
+                    if user_id[counter]["status"] not in active:   
+                        counter += 1
+                        skipped += 1
+                        updatecount(counterall)
+                        PAM.info('Inactive user skipped')
+                    if user_id[counter]["bot"] == True:
+                        counter += 1
+                        bot += 1
+                        updatecount(counterall)
+                        PAM.info("bot skipped")
+                    elif user_id[counter][usermethod] == 'None':
+                        counter += 1
+                        noname += 1
+                        updatecount(counterall)
+                        PAM.info('NO USERNAME found for this user skipped')
+                except:
+                    printfinal()
+                    PAM.info("Finished")
             try:
                 postiton = applist.index(account)
                 current_user = user_id[counter]["userid"]
