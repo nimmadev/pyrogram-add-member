@@ -32,6 +32,24 @@ async def get_data(gp_s_id, gp_t_id, config, stop):
         except ValueError:
             PAM.info(f"{phone} has not joined target chat or RUN get_data.py")
             await asyncio.sleep(1)
+        mem = []
+        async for member in app.get_chat_members(chat_id=gp_s_id):
+            await asyncio.sleep(.0025)
+            gc.disable()
+            try:
+                # scrap member
+                memb = {
+                        "userid": str(member.user.id),
+                        "status": str(member.user.status),
+                        "name": str(member.user.first_name),
+                        "bot": member.user.is_bot,
+                        "username": str(member.user.username)
+                }
+                gc.disable()
+                mem.append(memb)
+                gc.enable()
+            except BaseException:
+                PAM.info('error')
         mem2 = []
         async for member in app.get_chat_members(chat_id=gp_t_id):
             await asyncio.sleep(.0025)
@@ -68,7 +86,7 @@ async def get_data(gp_s_id, gp_t_id, config, stop):
                 gc.enable()
             except BaseException:
                 PAM.info('error')
-        app.stop()
+        await app.stop()
         PAM.info(f'{phone} getting admin user data')
         with open('data/source_user.json', 'w', encoding='utf-8') as f:
             json.dump(mem, f, indent=4, ensure_ascii=False)
@@ -107,19 +125,8 @@ async def get_data(gp_s_id, gp_t_id, config, stop):
             mem = []
             async for member in app.get_chat_members(chat_id=gp_s_id):
                 await asyncio.sleep(.0025)
-                gc.disable()
-                try:
-                    # scrap member
-                    memb = {
-                        "userid": str(member.user.id),
-                        "status": str(member.user.status),
-                        "name": str(member.user.first_name),
-                        "bot": member.user.is_bot,
-                        "username": str(member.user.username)
-                    }
-                    gc.disable()
-                    mem.append(memb)
-                    gc.enable()
+                try: 
+                    pass
                 except BaseException:
                     PAM.info('error')
 
