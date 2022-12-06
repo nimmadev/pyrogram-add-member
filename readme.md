@@ -82,9 +82,7 @@ RUN python3 add_member.py or python add_member.py
 - dont missmatch pick it will give erros
 
 ## Features
-
-- faster get_data.py in donation version
-- unlimited scraping of members in donation version
+### GitHub Version
 - 10k members scraping 
 - Faster speed
 - skip admins
@@ -98,6 +96,14 @@ RUN python3 add_member.py or python add_member.py
 - Account are used with sync so less wait time
 - Cross platform
 - First open source add member written in pyrogram 
+
+### Premium Version
+- all from GitHub
+- scrap full group not just 10k
+- 4-* times faster [depend on ur cpu cores]
+- use parallel get_data
+- scraps contacts and save in .CSV file
+- Setup help contact @R5pro on telegram 
 
 
 ## Support or donation 
