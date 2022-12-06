@@ -102,7 +102,7 @@ async def get_data(gp_s_id, gp_t_id, config, stop):
             exit()
     total_account = len(config['accounts'])
     account = config['accounts']
-    for numb in range(1, total_account+1):
+    for numb in range(1, total_account):
         phone = account[numb]["phone"]
         PAM.info(f'{phone} getting source user data')
         async with Client(phone, workdir="session") as app:
