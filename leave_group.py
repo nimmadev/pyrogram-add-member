@@ -1,6 +1,6 @@
 import asyncio
 import json
-from helper.leave_group import leave
+from helper.leave_group import leave, leave2
 from helper.pam_log import pamlog
 #load config for accounts
 config=json.load(open('config.json'))
@@ -18,7 +18,7 @@ async def loginall():
         if option == '1':
             await leave(phone, api_id, api_hash, group_source_id)
         elif option == '2':
-            await leave(phone, api_id, api_hash, group_source_id,  group_target_id) 
+            await leave2(phone, api_id, api_hash, group_source_id,  group_target_id) 
         else:
             PAM.info('Wrong option')
 asyncio.run(loginall())
