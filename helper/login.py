@@ -1,7 +1,7 @@
 import asyncio
 import json, os
 from pyrogram import Client, enums 
-from pyrogram.errors import YouBlockedUser, RPCError, FloodWait, ChatAdminRequired, PeerFlood, PeerIdInvalid, UserIdInvalid, UserPrivacyRestricted, UserRestricted, ChannelPrivate, UserNotMutualContact, PhoneNumberBanned, UserChannelsTooMuch, UserKicked
+from pyrogram.errors import YouBlockedUser, UserAlreadyParticipant, RPCError, FloodWait, ChatAdminRequired, PeerFlood, PeerIdInvalid, UserIdInvalid, UserPrivacyRestricted, UserRestricted, ChannelPrivate, UserNotMutualContact, PhoneNumberBanned, UserChannelsTooMuch, UserKicked
 from pathlib import Path
 from datetime import datetime, timedelta
 import logging
@@ -16,6 +16,8 @@ async def login(phone, api_id, api_hash, auto_join, group_source_id,  group_targ
             if auto_join is True:
                 try:
                     await app.join_chat(group_source_id)
+                except UserAlreadyParticipant:
+                    await app.get_chat(group_source_id)
                 except BaseException as e:
                      PAM.info("could not join maybe already in source group")
 
