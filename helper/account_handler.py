@@ -133,7 +133,7 @@ async def add_member(user_id, config, active, method):
                         bot += 1
                         updatecount(counterall)
                         PAM.info("bot skipped")
-                    elif user_id[counter][usermethod] == 'None':
+                    if user_id[counter][usermethod] == 'None':
                         counter += 1
                         noname += 1
                         updatecount(counterall)

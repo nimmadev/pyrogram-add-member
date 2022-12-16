@@ -1,12 +1,12 @@
 {
 	"group_target": 1398166,
 	"group_source": 1490304,
-	"group_source_username": "https://t.me/",
-	"group_target_username": "https://t.me/",
-	"from_date_active": "",
+	"group_source_username": "telegram",
+	"group_target_username": "cryp",
+	"from_date_active": "UserStatus.LONG_AGO",
 	"auto_join": false,
-	"spam_check": true,
-	"wait_time": 120,
+	"spam_check": true, 
+	"wait_time": 120, #sleep time
 	"accounts": [
 		{
 			"phone": "+84XXXX",

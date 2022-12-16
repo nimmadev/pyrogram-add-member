@@ -15,7 +15,12 @@ async def addlogin(config):
     for account in config:
         phone = account["phone"]
         app = Client(phone,api_id=account["api_id"], api_hash=account["api_hash"], workdir="session")
-        await app.start()
+        try:
+			await app.start()
+		except UserDeactivatedBan:
+            PAM.info(f"{phone} has been removed from telegram"):
+		except Execption as e :
+				PAM.info(f"{e} Share this error to @nimmadev on telegram") 
         check = await app.get_me() 
         try:   
             spam = config["spam_check"]
