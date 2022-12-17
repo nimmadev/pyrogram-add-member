@@ -1,7 +1,7 @@
 import asyncio
 import json, os
 from pyrogram import Client, enums 
-from pyrogram.errors import YouBlockedUser, FloodWait, ChatAdminRequired, PeerFlood, PeerIdInvalid, UserIdInvalid, UserPrivacyRestricted, UserRestricted, ChannelPrivate, UserNotMutualContact, PhoneNumberBanned, UserChannelsTooMuch, UserKicked
+from pyrogram.errors import YouBlockedUser, UserDeactivatedBan, FloodWait, ChatAdminRequired, PeerFlood, PeerIdInvalid, UserIdInvalid, UserPrivacyRestricted, UserRestricted, ChannelPrivate, UserNotMutualContact, PhoneNumberBanned, UserChannelsTooMuch, UserKicked
 from pathlib import Path
 from datetime import datetime, timedelta
 import logging
