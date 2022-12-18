@@ -220,7 +220,8 @@ async def add_member(user_id, config, active, method):
             except RPCError as e:
                 PAM.info(f"{phone} Rpc error")
                 PAM.info(f"{e}")
-                PAM.info(f"{user_id}")
+                m = user_id[counter][usermethod]
+                PAM.info(f"{m}")
                 counter +=1
                 await prints()
             except OSError:
@@ -228,7 +229,8 @@ async def add_member(user_id, config, active, method):
             except BaseException as e:
                 PAM.info(phone, "error info below")
                 PAM.info(f"{e}")
-                PAM.info(f"{user_id}")
+                m = user_id[counter][usermethod]
+                PAM.info(f"{m}")
                 counter +=1
                 await prints()
             if osr == 30:
