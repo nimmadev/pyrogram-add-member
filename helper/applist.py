@@ -44,7 +44,7 @@ async def addlogin(config):
                     messegespam = await app.send_message('@spambot', '/start')
                     messget = await app.get_messages('@spambot', message_ids=(int(messegespam.id) + 1)).text
                     listofnum = [
-                        "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
+                        'sorry']
                     checktext = [x for x in listofnum if (x in messget)]
                     if checktext:
                         PAM.info(

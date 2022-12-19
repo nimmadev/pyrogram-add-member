@@ -16,7 +16,7 @@ def check_num(phone):
             return phone
 
 
-DEAFULT = "UserStatus.LONG_AGO"
+DEFAULT = "UserStatus.LONG_AGO"
 
 OPTIONS = "UserStatus.LAST_MONTH", "UserStatus.LAST_WEEK", "UserStatus.OFFLINE", "UserStatus.RECENTLY", "UserStatus.ONLINE"
 config_path = Path("config.json")
@@ -39,7 +39,7 @@ else:
     "",
      group_target_username)
 
-choice = input(f"\n\nType YES to add api and hash manully\nType NO to use default one from telegram :> ").lower()
+choice = input(f"\n\nType YES to add api and hash manually \nType NO to use default one from telegram :> ").lower()
 
 
 def main():
@@ -54,7 +54,7 @@ def main():
                                 "group_target": group_target,
                                 "group_source_username": group_source_username,
                                 "group_target_username": group_target_username,
-                                "from_date_active": DEAFULT,
+                                "from_date_active": DEFAULT,
                                 "auto_join": False,  # can be True or False
                                 "spam_check": True,  # turn on off spam check
                                 "wait_time": 120,  # time to wait after adding
@@ -80,7 +80,7 @@ def main():
                                     "group_target": group_target,
                                     "group_source_username": group_source_username,
                                     "group_target_username": group_target_username,
-                                    "from_date_active": DEAFULT,
+                                    "from_date_active": DEFAULT,
                                     "auto_join": False,  # can be True or False
                                     "spam_check": True,  # turn on off spam check
                                     "wait_time": 120,  # time to wait after adding
@@ -111,7 +111,7 @@ def main():
                                         "group_target": group_target,
                                         "group_source_username": group_source_username,
                                         "group_target_username": group_target_username,
-                                        "from_date_active": DEAFULT,
+                                        "from_date_active": DEFAULT,
                                         "auto_join": True,  # can be True or False
                                         "spam_check": True,  # turn on off spam check
                                         "wait_time": 120,  # time to wait after adding
@@ -122,7 +122,7 @@ def main():
               phon = input("enter ur number with country code: ")
               phone = check_num(phon)
               apiid = int(input("enter api id: "))
-              hashid=input("eneter hash id: ")
+              hashid=input("enter hash id: ")
               print(f"{phone} added to config run python login.py to login")
               new_account={
                             "phone": phone,

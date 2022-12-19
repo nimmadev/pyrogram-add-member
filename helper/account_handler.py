@@ -6,7 +6,7 @@ import sys
 import readchar
 import platform
 from pyrogram import Client, enums 
-from pyrogram.errors import YouBlockedUser, RPCError, FloodWait, ChatAdminRequired, PeerFlood, PeerIdInvalid, UserIdInvalid, UserPrivacyRestricted, UserRestricted, ChannelPrivate, UserNotMutualContact, PhoneNumberBanned, UserChannelsTooMuch, UserKicked, UserDeactivatedBan, UsernameNotOccupied
+from pyrogram.errors import YouBlockedUser, RPCError, FloodWait, ChatAdminRequired, PeerFlood, PeerIdInvalid, UserIdInvalid, UserPrivacyRestricted, UserRestricted, ChannelPrivate, UserNotMutualContact, PhoneNumberBanned, UserChannelsTooMuch, UserKicked, UserDeactivatedBan, UsernameNotOccupied, UserBannedInChannel
 from pathlib import Path
 from helper.applist import addlogin
 from datetime import datetime, timedelta
@@ -120,27 +120,30 @@ async def add_member(user_id, config, active, method):
                             PAM.info(str(e))
             phone = account['phone']
             app = account['app']
-                   
-            while user_id[counter]["bot"] == True or user_id[counter][usermethod] == 'None' or user_id[counter]["status"] not in active:
-                try:
-                    if user_id[counter]["status"] not in active:   
-                        counter += 1
-                        skipped += 1
-                        updatecount(counterall)
-                        PAM.info('Inactive user skipped')
-                    if user_id[counter]["bot"] == True:
-                        counter += 1
-                        bot += 1
-                        updatecount(counterall)
-                        PAM.info("bot skipped")
-                    if user_id[counter][usermethod] == 'None':
-                        counter += 1
-                        noname += 1
-                        updatecount(counterall)
-                        PAM.info('NO USERNAME found for this user skipped')
-                except:
-                    printfinal()
-                    PAM.info("Finished")
+            try:  
+                while user_id[counter]["bot"] == True or user_id[counter][usermethod] == 'None' or user_id[counter]["status"] not in active:
+                    try:
+                        if user_id[counter]["status"] not in active:   
+                            counter += 1
+                            skipped += 1
+                            updatecount(counterall)
+                            PAM.info('Inactive user skipped')
+                        if user_id[counter]["bot"] == True:
+                            counter += 1
+                            bot += 1
+                            updatecount(counterall)
+                            PAM.info("bot skipped")
+                        if user_id[counter][usermethod] == 'None':
+                            counter += 1
+                            noname += 1
+                            updatecount(counterall)
+                            PAM.info('NO USERNAME found for this user skipped')
+                    except:
+                        printfinal()
+                        PAM.info("Finished")
+            except:
+                printfinal()
+                PAM.info("Finished")
             try:
                 postiton = applist.index(account)
                 current_user = user_id[counter]["userid"]
@@ -151,7 +154,11 @@ async def add_member(user_id, config, active, method):
                 counter += 1
                 added += 1
                 await prints()
-                   
+            except UserBannedInChannel: 
+                await app.stop()
+                applist.remove(account)  
+                PAM.info(f'phone number limited')  
+                await prints()
             except UsernameNotOccupied:
                 PAM.info("user not using username anymore")
                 counter +=1
