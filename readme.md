@@ -100,7 +100,7 @@ RUN python3 add_member.py or python add_member.py
 ### Premium Version
 - all from GitHub
 - scrap full group not just 10k
-- 4-* times faster [depend on ur cpu cores]
+- 40-80 times faster
 - use parallel get_data
 - scraps contacts and save in .CSV file
 - Setup help contact @R5pro on telegram 
