@@ -51,6 +51,7 @@ async def add_member(user_id, config, active, method):
             counter = added2 = privacy2 = uc2 = skipped2 =  0
 
     chat_idt = int(str(-100) +str(config['group_target']))
+    g_s_id = int(str(-100) +str(config['group_source']))
 
     # all zero value avar initali
     added = skipped = privacy = uc = um = bot = noname = osr = 0
@@ -75,7 +76,7 @@ async def add_member(user_id, config, active, method):
     total_account = len(config['accounts'])
     PAM.info(f'total account trying to login {total_account}')
     await asyncio.sleep(.2)
-    applist = await addlogin(config['accounts'])
+    applist = await addlogin(config['accounts'], g_s_id)
     logined_account = len(applist)
     PAM.info(f"total logind account {logined_account}")
     await asyncio.sleep(1)

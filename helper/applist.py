@@ -9,7 +9,7 @@ import logging
 from helper.pam_log import pamlog
 
 
-async def addlogin(config):
+async def addlogin(config, gp_s_id):
     # create logger
     PAM = pamlog('PAM-LOGIN')
     PAM.propagate = False
@@ -55,7 +55,12 @@ async def addlogin(config):
                     PAM.info(f'could not perform spam test on this {phone}')
                     applist.append({'phone': account["phone"], 'app': app})
             else:
-                applist.append({'phone': account["phone"], 'app': app})
+                try: 
+                    await app.get_chat(gp_s_id)
+                    applist.append({'phone': account["phone"], 'app': app})
+                except:
+                    PAM.info(f"{phone} has not joined source chat or RUN get_data.py")
+                
         else:
             PAM.info(f'{phone} login failed')
             await asyncio.sleep(1)
