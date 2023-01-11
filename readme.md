@@ -119,6 +119,14 @@ Or help and support [@pyrogram-add-member](https://t.me/nimmadev)
 
 600 - 1000 Member daily
 
+### Error on login.py
+
+use correct username for channel
+
+### Error on get_data.py
+
+raise a issue or use telegram support
+
 #### How Many Account are recommended 
 
 I will Suggest 15 but depends on ur biggest
