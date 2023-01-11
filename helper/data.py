@@ -24,13 +24,16 @@ async def get_data(gp_s_id, gp_t_id, config, stop):
             PAM.info(f"{phone} login failed")
         try:
             await app.get_chat(gp_s_id)
-        except ValueError:
-            PAM.info(f"{phone} has not joined source chat or RUN get_data.py")
-            await asyncio.sleep(1)
+        except:
+            PAM.info(f"{phone} has not joined source chat or RUN login.py")
+            co = input('will you like to continue Y/N')
+            if co.lower() == 'y':
+                PAM.info('Exiting The program')
+                exit() 
         try:
             await app.get_chat(gp_t_id)
-        except ValueError:
-            PAM.info(f"{phone} has not joined target chat or RUN get_data.py")
+        except:
+            PAM.info(f"{phone} has not joined target chat or RUN login.py")
             await asyncio.sleep(1)
         mem = []
         async for member in app.get_chat_members(chat_id=gp_s_id):
