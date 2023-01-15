@@ -55,9 +55,9 @@ def main():
                                 "group_source_username": group_source_username,
                                 "group_target_username": group_target_username,
                                 "from_date_active": DEFAULT,
-                                "auto_join": False,  # can be True or False
-                                "spam_check": True,  # turn on off spam check
-                                "wait_time": 120,  # time to wait after adding
+                                "auto_join": False, 
+                                "spam_check": True,
+                                "wait_time": 120,
                                 "accounts": []
                             }
                 for pphone in str_list:
@@ -81,9 +81,9 @@ def main():
                                     "group_source_username": group_source_username,
                                     "group_target_username": group_target_username,
                                     "from_date_active": DEFAULT,
-                                    "auto_join": False,  # can be True or False
-                                    "spam_check": True,  # turn on off spam check
-                                    "wait_time": 120,  # time to wait after adding
+                                    "auto_join": False,  
+                                    "spam_check": True,  
+                                    "wait_time": 120, 
                                     "accounts": []
                                 }
                 count = int(input("how many numbers you want to add: "))
@@ -112,9 +112,9 @@ def main():
                                         "group_source_username": group_source_username,
                                         "group_target_username": group_target_username,
                                         "from_date_active": DEFAULT,
-                                        "auto_join": True,  # can be True or False
-                                        "spam_check": True,  # turn on off spam check
-                                        "wait_time": 120,  # time to wait after adding
+                                        "auto_join": True, 
+                                        "spam_check": True,  
+                                        "wait_time": 120, 
                                         "accounts": []
                                     }
              count = int(input("how many numbers you want to add: "))

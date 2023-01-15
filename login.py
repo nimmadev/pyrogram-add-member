@@ -3,7 +3,7 @@ import json
 from helper.login import login, create
 from helper.pam_log import pamlog
 #load config for accounts
-config=json.load(open('config.json'))
+config=json.load(open('config.json', 'r', encoding='utf-8'))
 group_source_id=str(config['group_source_username'])
 group_target_id=str(config['group_target_username'])
 auto_join=bool(config['auto_join'])
