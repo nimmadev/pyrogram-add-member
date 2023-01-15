@@ -5,6 +5,7 @@ from pyrogram.errors import YouBlockedUser, UserDeactivatedBan, UserAlreadyParti
 from pathlib import Path
 from datetime import datetime, timedelta
 import logging
+import random
 from helper.pam_log import pamlog
 def get_device():
     with open(Path('helper/device.json'), 'r', encoding='utf-8') as f:
