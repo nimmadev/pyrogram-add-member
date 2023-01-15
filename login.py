@@ -28,5 +28,5 @@ async def loginall():
         await login(phone, api_id, api_hash, auto_join, group_source_id,  group_target_id)
 if option.lower()[0] == 'l':
     asyncio.run(loginall())
-elif option.lower()[1] == 'c':
+elif option.lower()[0] == 's':
     asyncio.run(createall())
