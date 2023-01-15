@@ -4,6 +4,7 @@ from csv import reader
 from pathlib import Path
 import re
 import time
+import base64
 
 
 def check_num(phone):
@@ -15,7 +16,8 @@ def check_num(phone):
         if phone.isdigit():
             return phone
 
-
+DEFAULT_API_ID = base64.b64decode(b'Ng==').decode()
+DEFAULT_API_HASH = base64.b64decode(b'ZWIwNmQ0YWJmYjQ5ZGMzZWViMWFlYjk4YWUwZjU4MWU=').decode()
 DEFAULT = "UserStatus.LONG_AGO"
 
 OPTIONS = "UserStatus.LAST_MONTH", "UserStatus.LAST_WEEK", "UserStatus.OFFLINE", "UserStatus.RECENTLY", "UserStatus.ONLINE"
@@ -66,8 +68,8 @@ def main():
                     print(f"{phone} added to config run python login.py to login")
                     new_account = {
                         "phone": phone,
-                        "api_id": 6,
-                        "api_hash": "eb06d4abfb49dc3eeb1aeb98ae0f581e"
+                        "api_id": DEFAULT_API_ID,
+                        "api_hash": DEFAULT_API_HASH
                     }
                     config["accounts"].append(new_account)
             else:
@@ -93,8 +95,8 @@ def main():
                     print(f"{phone} added to config run python login.py to login")
                     new_account = {
                         "phone": phone,
-                        "api_id": 6,
-                        "api_hash": "eb06d4abfb49dc3eeb1aeb98ae0f581e"
+                        "api_id": DEFAULT_API_ID,
+                        "api_hash": DEFAULT_API_HASH
                     }
                     config["accounts"].append(new_account)
                     count -= 1
