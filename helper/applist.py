@@ -27,7 +27,7 @@ async def addlogin(config, gp_s_id):
         except UserDeactivatedBan:
             PAM.info(f"{phone} has been removed from telegram")
             continue
-        except Execption as e:
+        except BaseException as e:
             PAM.info(f"{e} Share this error to @nimmadev on telegram")
             continue
         check = await app.get_me()
