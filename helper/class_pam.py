@@ -41,7 +41,7 @@ class PAM(object):
         self.config = json.load(open(self.root / config, 'r',
                                      encoding='utf-8'))
         self.source_groupid = int(str("-100")+str(self.config['group_source']))
-        self.target_groupid =int(str("-100")+str(self.config['group_source']))
+        self.target_groupid =int(str("-100")+str(self.config['group_target']))
         self.source_group = self.config.get('group_source_username', None)
         self.target_group = self.config.get('group_target_username', None)
         self.accounts = self.config['accounts']
@@ -263,6 +263,7 @@ class PAM(object):
                 json2 = [
                     item for item in json1 if item['userid'] not in garbage_i
                 ]
+                json2
                 with open(p3, "w", encoding='utf-8') as f:
                     json.dump(json2, f, ensure_ascii=False, indent=4)
             except:
