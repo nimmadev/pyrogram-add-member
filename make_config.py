@@ -85,7 +85,7 @@ def main():
                                     "from_date_active": DEFAULT,
                                     "auto_join": False,  
                                     "spam_check": True,  
-                                    "wait_time": 120, 
+                                    "wait_time": 300, 
                                     "accounts": []
                                 }
                 count = int(input("how many numbers you want to add: "))
@@ -116,7 +116,7 @@ def main():
                                         "from_date_active": DEFAULT,
                                         "auto_join": True, 
                                         "spam_check": True,  
-                                        "wait_time": 120, 
+                                        "wait_time": 300, 
                                         "accounts": []
                                     }
              count = int(input("how many numbers you want to add: "))
