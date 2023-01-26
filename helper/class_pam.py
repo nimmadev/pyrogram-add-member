@@ -1,5 +1,5 @@
 import asyncio
-import json, os
+import json, os, sys
 import gc
 from pyrogram import Client, enums
 from pyrogram.errors import *
@@ -269,7 +269,7 @@ class PAM(object):
             except:
                 print("no admin in group")
     
-    def handler(signum, frame):
+    def handler(self, signum, frame):
         msg = " Ctrl-c OR Ctrl-z was pressed. Do you really want to exit? y/n "
         print(msg)
         res = readchar.readchar()
@@ -280,7 +280,7 @@ class PAM(object):
         else:
             print(f'Okay then I will continue')
 
-    def updatecount(count):
+    def updatecount(self, count):
         with open('current_count.py', 'w') as g:
             g.write(str(count))
             g.close()
@@ -385,7 +385,7 @@ class PAM(object):
                     current_user = user_id[counter]["userid"]
                     postion2 = len(applist)
                     PAM.info(f"trying to add {current_user} by : {phone} account-postiton : {postiton + 1} / {postion2}")
-                    await app.add_chat_members(chat_id=chat_idt, user_ids=user_id[counter][usermethod])
+                    await app.add_chat_members(chat_id=self.target_groupid, user_ids=user_id[counter][usermethod])
                     PAM.info(f"{current_user} added success")
                     counter += 1
                     added += 1
