@@ -69,7 +69,10 @@ def main():
                     new_account = {
                         "phone": phone,
                         "api_id": DEFAULT_API_ID,
-                        "api_hash": DEFAULT_API_HASH
+                        "api_hash": DEFAULT_API_HASH,
+                        "app_version" : "9.3.3",
+                        "device_model" : "Android 10",
+                        "system_version" :"Moto G8 Power"
                     }
                     config["accounts"].append(new_account)
             else:
@@ -96,7 +99,10 @@ def main():
                     new_account = {
                         "phone": phone,
                         "api_id": DEFAULT_API_ID,
-                        "api_hash": DEFAULT_API_HASH
+                        "api_hash": DEFAULT_API_HASH,
+                        "app_version" : "9.3.3",
+                        "device_model" : "Android 10",
+                        "system_version" :"Moto G8 Power"
                     }
                     config["accounts"].append(new_account)
                     count -= 1
@@ -129,7 +135,10 @@ def main():
               new_account={
                             "phone": phone,
                             "api_id": apiid,
-                            "api_hash": hashid
+                            "api_hash": hashid,
+                            "app_version" : "9.3.3",
+                            "device_model" : "Android 10",
+                            "system_version" :"Moto G8 Power"
                         }
               config["accounts"].append(new_account)
               count -= 1

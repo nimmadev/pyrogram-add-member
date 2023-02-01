@@ -19,7 +19,7 @@ This project is most optimised Telegram member adder.
 ## Authors
 
 - [@nimmadev](https://www.github.com/nimmadev)
-- [@R5pro](http://t.me/R5pro)
+- [@P5pro](http://t.me/P5pro)
 
 
 ## Deployment
@@ -103,12 +103,12 @@ RUN python3 add_member.py or python add_member.py
 - 40-80 times faster
 - use parallel get_data
 - scraps contacts and save in .CSV file
-- Setup help contact @R5pro on telegram 
+- Setup help contact @P5pro on telegram 
 
 
 ## Support or donation 
 
-For Premium version it's 40USD [US] Contact, [@R5pro](http://t.me/R5pro) on Telegram
+For Premium version it's 40USD [US] Contact, [@P5pro](http://t.me/P5pro) on Telegram
 
 Or help and support [@pyrogram-add-member](https://t.me/nimmadev)
 
@@ -131,7 +131,7 @@ raise a issue or use telegram support
 
 I will Suggest 15 but depends on ur biggest
 
-Buy account from : [@R5pro](http://t.me/R5pro) on Telegram
+Buy account from : [@P5pro](http://t.me/P5pro) on Telegram
 
 Check @spambot on Telegram if ur account is limited
 

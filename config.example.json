@@ -6,12 +6,15 @@
 	"from_date_active": "UserStatus.LONG_AGO",
 	"auto_join": false,
 	"spam_check": true, 
-	"wait_time": 120, #sleep time
+	"wait_time": 300, #sleep time
 	"accounts": [
 		{
 			"phone": "+84XXXX",
 			"api_id": 1234566,
-			"api_hash": "57c6f3c72c2f21676d53be2eXXXXXX"
+			"api_hash": "57c6f3c72c2f21676d53be2eXXXXXX",
+			"app_version" : "9.3.3",
+			"device_model" : "Android 10",
+			"system_version" :"Moto G8 Power"
 		}
 	]
 }

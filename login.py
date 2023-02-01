@@ -1,13 +1,9 @@
-import asyncio
-from helper.class_pam import PAM
+from pyroadd import pyroadd
 
 option = input('Login or Signup type one : ')
-app = PAM('config.json')
-async def createall():
-    await app.Signup('PAM-Signup', 'session')
-async def loginall():
-    await app.Login('PAM-Login', 'session', False)
+app = pyroadd('config.json')
+
 if option.lower()[0] == 'l':
-    asyncio.run(loginall())
+    app.Signup('PAM-Signup', 'session')
 elif option.lower()[0] == 's':
-    asyncio.run(createall())
+    app.Login('PAM-Login', 'session', False)

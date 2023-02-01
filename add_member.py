@@ -1,11 +1,6 @@
-
-import asyncio
-from helper.class_pam import PAM
+from pyroadd import pyroadd
 #option for choose username or id
 option = input('choose method username or id: ').lower() 
-app = PAM('config.json')
-async def main():
-    applist =await app.Login('PAM-Login', 'session', True)
-    await app.add_member('PAM-AddMember', 'session', option, applist)
-
-asyncio.run(main())
+app = pyroadd('config.json')
+app.Login('PAM-Login', 'session', True)
+app.add_member('PAM-AddMember', 'session', option, applist)
