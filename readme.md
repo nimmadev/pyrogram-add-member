@@ -25,61 +25,54 @@ This project is most optimised Telegram member adder.
 ## Deployment
 
 - To deploy this project run you must have python3 installed and git
-- use other command if first one give error 
+use another command if first one gives an error 
 
 
 ```
-Get Api_Id and Api_Hash From my.telegram.org
+Get Api_Id and Api_Hash From my.telegram.org [optional]
 ```
+#
+### clone repo
 ```bash
   git clone https://github.com/nimmadev/pyrogram-add-member
 ```
+#
+### Install required dependencies
 ```
- RUN pip3 install -r requirements.txt or pip -r install requirments.txt 
+ pip3 install -r requirements.txt or pip -r install requirments.txt 
 ```
-Now We Will Add Account Which Will be Used For Adding 
+#
+### make Config
+```python
+python make_config.py
 ```
-RUN python3 make_config.py or python make_config.py
+check config.example.json for configurations
+#
+### login
 ```
-- first  id of group you want to scrap
-- second id of ur group
-- source username is the link or username of group you want to scrap
-- target username is the link or username of your group
-- if you have api_id and hash for ur numbers type YES otherwise 
-
-# For NO
-if you did not add number in phone.csv you will be asked for 
-how many numbers you want to add
-- first add ur phone numbers in phone.csv (optional)
-- type the number one by one with country code example 918571000000 [91 is my country code] (only required if you did not fill phone.csv)
-# For YES
--  enter number of account you want to add example: 10 or 5
--  enter ur number with country code example 918571000000 [91 is my country code]
--  enter ur api id. get from https://my.telegram.org/auth
--  enetr ur api hash. get from https://my.telegram.org/auth
-
-
-### AutoJoin and SpamCheck accepts [True/false] editable in  config.py after you run make_confg.py
-
+python3 login.py or python login.py 
 ```
-RUN python3 login.py or python login.py 
+#
+### Scrapping members
 ```
-- Follow on screen instructions
-- Don't use Bot token
-```
-RUN python3 get_data.py or python get_data.py
+python3 get_data.py or python get_data.py
 ```
 - this will extract 10k members from source group
-- there are two option username or id 
+- there are two options username or id 
 - id will add more member but scraping take long
 - username is best if you want to save time
+
+#
+### Add members
 ```
-RUN python3 add_member.py or python add_member.py
+python3 add_member.py or python add_member.py
 ```
 - member adding has started
 - there two option username/id
 - choose what you picked above
-- dont missmatch pick it will give erros
+- don`t miss match pick it will give errors
+  
+<br>
 
 ## Features
 ### GitHub Version
@@ -124,10 +117,9 @@ Or help and support [@pyrogram-add-member](https://t.me/nimmadev)
 use correct username for channel
 
 ### Error on get_data.py
+raise an issue or use telegram support
 
-raise a issue or use telegram support
-
-#### How Many Account are recommended 
+### How Many Accounts are recommended 
 
 I will Suggest 15 but depends on ur biggest
 
@@ -137,7 +129,7 @@ Check @spambot on Telegram if ur account is limited
 
 #### 6th point from deployment
 
-option are
+option is
 ```
  UserStatus.LONG_AGO - User was seen long ago
  UserStatus.LAST_MONTH - User was seen last month
