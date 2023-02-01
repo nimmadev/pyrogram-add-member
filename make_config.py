@@ -25,6 +25,8 @@ config_path = Path("config.json")
 group_source = input("group_source_id: ")
 group_target = input("group_target_id :")
 group_source_username = input("group_source_username: ")
+Android = input("Android Version : ")
+Device = input("Device model : ")
 if '+' in group_source_username:
     pass
 else:
@@ -71,8 +73,8 @@ def main():
                         "api_id": DEFAULT_API_ID,
                         "api_hash": DEFAULT_API_HASH,
                         "app_version" : "9.3.3",
-                        "device_model" : "Android 10",
-                        "system_version" :"Moto G8 Power"
+                        "device_model" : Android,
+                        "system_version" :Device
                     }
                     config["accounts"].append(new_account)
             else:
@@ -101,8 +103,8 @@ def main():
                         "api_id": DEFAULT_API_ID,
                         "api_hash": DEFAULT_API_HASH,
                         "app_version" : "9.3.3",
-                        "device_model" : "Android 10",
-                        "system_version" :"Moto G8 Power"
+                        "device_model" : Android,
+                        "system_version" :Device
                     }
                     config["accounts"].append(new_account)
                     count -= 1
@@ -137,8 +139,8 @@ def main():
                             "api_id": apiid,
                             "api_hash": hashid,
                             "app_version" : "9.3.3",
-                            "device_model" : "Android 10",
-                            "system_version" :"Moto G8 Power"
+                            "device_model" : Android,
+                            "system_version" :Device
                         }
               config["accounts"].append(new_account)
               count -= 1
