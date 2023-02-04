@@ -1,1 +1,1 @@
-{'counter': 0, 'left_to_add': 1852, 'added': 0, 'skipped': 0, 'privacy': 0, 'already in too many channel/group': 0}
+{}
