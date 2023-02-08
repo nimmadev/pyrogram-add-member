@@ -1,4 +1,4 @@
-from pyromod import pyroadd
+from pyroadd import pyroadd
 
 option = input('Login or Signup type one : ')
 app = pyroadd('config.json')

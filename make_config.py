@@ -25,8 +25,7 @@ config_path = Path("config.json")
 group_source = input("group_source_id: ")
 group_target = input("group_target_id :")
 group_source_username = input("group_source_username: ")
-Android = input("Android Version : ")
-Device = input("Device model : ")
+
 if '+' in group_source_username:
     pass
 else:
@@ -43,6 +42,8 @@ else:
     "",
      group_target_username)
 
+Android = input("Android Version : ")
+Device = input("Device model : ")
 choice = input(f"\n\nType YES to add api and hash manually \nType NO to use default one from telegram :> ").lower()
 
 
@@ -61,7 +62,7 @@ def main():
                                 "from_date_active": DEFAULT,
                                 "auto_join": False, 
                                 "spam_check": True,
-                                "wait_time": 120,
+                                "wait_time": 300,
                                 "accounts": []
                             }
                 for pphone in str_list:
