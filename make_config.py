@@ -42,8 +42,8 @@ else:
     "",
      group_target_username)
 
-Android = input("Android Version : ")
-Device = input("Device model : ")
+Device = input("Android Version : ")
+Android = input("Device model : ")
 choice = input(f"\n\nType YES to add api and hash manually \nType NO to use default one from telegram :> ").lower()
 
 
