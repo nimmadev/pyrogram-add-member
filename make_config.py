@@ -6,7 +6,7 @@ import re
 import time
 import base64
 
-# This code is based on the function X from the MIT GitHub repository
+# This code is based on the function phonenumber_check from the Telethon GitHub repository
 # Author: @LonamiWebs
 # Link to original code: https://github.com/LonamiWebs/Telethon/blob/5b1135734bdcc246faa01954cf75b6416c2aeee0/telethon/utils.py#L915
 def check_num(phone):
