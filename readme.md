@@ -19,7 +19,7 @@ This project is most optimised Telegram member adder.
 ## Authors
 
 - [@nimmadev](https://www.github.com/nimmadev)
-- [@R5pro](http://t.me/p5pro)
+- [@P5pro](http://t.me/p5pro)
 
 
 ## Deployment
@@ -108,7 +108,7 @@ RUN python3 add_member.py or python add_member.py
 
 ## Support or donation 
 
-For Premium version it's 40USD [US] Contact, [@R5pro](http://t.me/R5pro) on Telegram
+For Premium version it's 40USD [US] Contact, [@P5pro](http://t.me/R5pro) on Telegram
 
 Or help and support [@pyrogram-add-member](https://t.me/nimmadev)
 
