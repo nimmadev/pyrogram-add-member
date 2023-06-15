@@ -19,7 +19,7 @@ This project is most optimised Telegram member adder.
 ## Authors
 
 - [@nimmadev](https://www.github.com/nimmadev)
-- [@R5pro](http://t.me/R5pro)
+- [@R5pro](http://t.me/p5pro)
 
 
 ## Deployment
@@ -131,7 +131,7 @@ raise a issue or use telegram support
 
 I will Suggest 15 but depends on ur biggest
 
-Buy account from : [@R5pro](http://t.me/R5pro) on Telegram
+Buy account from : [@R5pro](http://t.me/p5pro) on Telegram
 
 Check @spambot on Telegram if ur account is limited
 
